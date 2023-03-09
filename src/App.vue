@@ -2,6 +2,7 @@
   <div>
     <VHeader />
     App.vue 페이지
+    윤형
     <VFooter />
   </div>
 </template>
