@@ -6,11 +6,22 @@
         </div>
 
         <div class="modal-board">
-          <div class="modal-board-content">
-
+          <div class="modal-board-contents">
+            <p class="modal-board-contents-title">
+              김종국입니다.
+            </p>
+            <p class="modal-board-contents-content">
+              오운완 ㅋ
+            </p>
           </div>
           <div class="modal-board-comment">
-            
+            <div class="modal-board-comment-content">
+
+            </div>
+            <form class="modal-board-comment-input">
+              <input type="text" value="" placeholder="댓글 달기..">
+              <button type="submit">입력</button>
+            </form>
           </div>
         </div>
       </div>
