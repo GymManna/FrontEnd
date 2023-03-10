@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'ArticlePhoto'
+    name: 'CreateArticlePhoto'
   }
 </script>
 

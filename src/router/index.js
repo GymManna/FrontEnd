@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import ArticleGathering from "../views/article/ArticleGathering";
-import ArticlePhoto from "../views/article/ArticlePhoto";
+import ArticleGathering from "../views/article/gathering/ArticleGathering";
+import ArticlePhoto from "../views/article/photo/ArticlePhoto";
+import DetailArticlePhoto from '../views/article/photo/DetailPhoto';
 
 // 라우터 설계
 const routes = [
@@ -15,6 +16,12 @@ const routes = [
       path: "/photo",
       name: "ArticlePhoto",
       component: ArticlePhoto,
+      
+    },
+    {
+      path: "/photo/:id",
+      // name: "DetailArticlePhoto",
+      component: DetailArticlePhoto,
       
     }
 ]

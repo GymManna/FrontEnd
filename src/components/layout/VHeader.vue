@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="logo">
-      <img src="../assets/images/logo.png" alt="로고">
+      <img src="../../assets/images/logo.png" alt="로고">
     </div>
     <nav>
        <router-link to="/gathering"> <button>짐 만나요</button> </router-link>
