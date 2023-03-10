@@ -12,7 +12,9 @@
 </template>
 
 <script>
-
+  export default {
+    name: 'VFooter'
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <VHeader />
-    App.vue 페이지
+    <router-view />
     <VFooter />
   </div>
 </template>

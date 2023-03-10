@@ -4,8 +4,8 @@
       <img src="../assets/images/logo.png" alt="로고">
     </div>
     <nav>
-      <button> 짐 만나요 </button>
-      <button> 운동 인증해요 </button>
+       <router-link to="/gathering"> <button>짐 만나요</button> </router-link>
+       <router-link to="/photo"> <button>운동 인증해요</button> </router-link>
     </nav>
     <div class="user-page">
       <a href="">마이페이지</a>
@@ -15,7 +15,9 @@
 </template>
 
 <script>
-
+  export default {
+    name: 'VHeader'
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -40,18 +42,21 @@
       flex-direction: row;
       gap: 10px;
 
-      button {
+      a {
+        color: #2c3e50;
+        
+        button {
         width: 200px;
         height: 50px;
-
         border: none;
         background-color: #FFDC5D;
-        font-size: 18px;
         cursor: pointer;
-      }
+        font-size: 18px;
+        }
 
-      button:hover {
-        background-color: #ffce1d;
+        button:hover {
+          background-color: #ffce1d;
+        }
       }
     }
 
@@ -62,8 +67,8 @@
 
       a {
         color: #2c3e50;
-        font-size: 18px;
         text-decoration: none;
+        font-size: 18px;
       }
     }
   }
