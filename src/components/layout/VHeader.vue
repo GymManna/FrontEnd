@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="logo">
-      <img src="../../assets/images/logo.png" alt="로고">
+      <router-link to="/signin"> <img src="../../assets/images/logo.png" alt="로고"> </router-link>
     </div>
     <nav>
-       <router-link to="/gathering"> <button>짐 만나요</button> </router-link>
-       <router-link to="/photo"> <button>운동 인증해요</button> </router-link>
+      <router-link to="/gathering"> <button>짐 만나요</button> </router-link>
+      <router-link to="/photo"> <button>운동 인증해요</button> </router-link>
     </nav>
     <div class="user-page">
       <a href="">마이페이지</a>
