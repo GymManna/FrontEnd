@@ -2,7 +2,6 @@
   <div>
     <VHeader />
     App.vue 페이지
-    윤형
     <VFooter />
   </div>
 </template>
@@ -27,5 +26,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
+  width: 1080px;
+  margin: 0 auto;
+  padding: 0;
 }
 </style>
