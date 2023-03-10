@@ -33,16 +33,16 @@
     </div>
   </div>
 
-  <DetailPhoto />
+  <!-- <DetailPhoto /> -->
 </template>
 
 <script>
-  import DetailPhoto from "./DetailPhoto.vue";
+  // import DetailPhoto from "./DetailPhoto.vue";
 
   export default {
     name: 'ArticlePhoto',
     components: {
-      DetailPhoto
+      // DetailPhoto
     }
   }
 </script>
