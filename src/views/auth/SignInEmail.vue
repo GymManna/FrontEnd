@@ -1,17 +1,14 @@
 <template>
   <div class="container">
     <span> E-mail </span> <input type="text">
-    <span> 이름 </span> <input type="text">
-    <span> 닉네임 </span> <input type="text">
     <span> Password </span> <input type="text">
-    <span> Password 확인 </span> <input type="text">
   </div>
-    <button> 회원가입 </button>
+    <button> 로그인 </button>
 </template>
 
 <script>
   export default {
-    name: 'SignUp'
+    name: 'SignInEmail'
   }
 </script>
 
@@ -20,9 +17,9 @@
   .container {
     display: grid;
     width: 700px;
-    height: 300px;
+    height: 120px;
     grid-template-columns: 2fr 5fr;
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
 
     column-gap: 10px;
     row-gap: 10px;
