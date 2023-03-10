@@ -1,8 +1,8 @@
 <template>
   <div>
-    <VHeader />
+    <VHeader v-if="this.$route.name !== 'SignIn'" />
     <router-view />
-    <VFooter />
+    <VFooter v-if="this.$route.name !== 'SignIn'" />
   </div>
 </template>
 

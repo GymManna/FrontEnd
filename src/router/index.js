@@ -28,7 +28,7 @@ const routes = [
       
     },
     {
-      path: "/signin",
+      path: "/",
       name: "SignIn",
       component: SignIn,
       
@@ -43,7 +43,6 @@ const routes = [
       path: "/signup",
       name: "SignUp",
       component: SignUp,
-      
     }
 ]
 
