@@ -4,6 +4,11 @@ import SignIn from "../views/auth/SignIn";
 import SignInEmail from "../views/auth/SignInEmail";
 import SignUp from "../views/auth/SignUp";
 import SignUpKakao from "../views/auth/SignUpKakao";
+import MyPageMenu from "../views/user/MyPageMenu";
+import JoinedGathering from "../views/user/JoinedGathering";
+import MyCommGathering from "../views/user/MyCommGathering";
+import MyCommPhoto from "../views/user/MyCommPhoto";
+import EditMyInfo from "../views/user/EditMyInfo";
 import ArticleGathering from "../views/article/gathering/ArticleGathering";
 import ArticlePhoto from "../views/article/photo/ArticlePhoto";
 import DetailArticlePhoto from '../views/article/photo/DetailPhoto';
@@ -31,6 +36,31 @@ const routes = [
       path: "/signupkakao",
       name: "SignUpKakao",
       component: SignUpKakao,
+    },
+    {
+      path: "/mypagemenu",
+      name: "MyPageMenu",
+      component: MyPageMenu,
+    },
+    {
+      path: "/joinedgathering",
+      name: "JoinedGathering",
+      component: JoinedGathering,
+    },
+    {
+      path: "/mycommgathering",
+      name: "MyCommGathering",
+      component: MyCommGathering,
+    },
+    {
+      path: "/mycommphoto",
+      name: "MyCommPhoto",
+      component: MyCommPhoto,
+    },
+    {
+      path: "/editmyinfo",
+      name: "EditMyInfo",
+      component: EditMyInfo,
     },
     {
       path: "/gathering",
