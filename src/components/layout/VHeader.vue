@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="logo">
-      <router-link to="/signin"> <img src="../../assets/images/logo.png" alt="로고"> </router-link>
+      <img src="../../assets/images/logo.png" alt="로고">
     </div>
     <nav>
       <router-link to="/gathering"> <button>짐 만나요</button> </router-link>
@@ -9,7 +9,7 @@
     </nav>
     <div class="user-page">
       <a href="">마이페이지</a>
-      <a href="">로그아웃</a>
+      <a href="/">로그아웃</a>
     </div>
   </div>
 </template>
