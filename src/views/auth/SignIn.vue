@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="box">
-      <button class="signin-kakao"> Sign in via kakao </button>
+      <router-link to="signupkakao"> <button class="signin-kakao"> Sign in via kakao </button> </router-link>
       <router-link to="signinemail"> <button class="signin-email"> Sign in via E-mail </button> </router-link>
       <router-link to="signup"> <button class="signup"> Sign up </button> </router-link>
     </div>
