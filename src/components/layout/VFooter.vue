@@ -37,7 +37,7 @@
       }
 
       a:hover {
-        background-color: #FFDC5D;;
+        background-color: #FFDC5D;
       }
     }
   }

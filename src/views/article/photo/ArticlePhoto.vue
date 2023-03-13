@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="card" @click="show = !show">
+    <div class="card" @click="toggleModalHandler">
       <img src="../../../assets/images/img1.jpeg" alt="오운완 이미지1">
     </div>
 
@@ -33,17 +33,27 @@
     </div>
   </div>
 
-  <!-- <DetailPhoto /> -->
+  <DetailPhoto v-if="showModal" @close="toggleModalHandler"/>
 </template>
 
 <script>
-  // import DetailPhoto from "./DetailPhoto.vue";
-
+  import DetailPhoto from "./DetailPhoto.vue";
+  
   export default {
     name: 'ArticlePhoto',
     components: {
-      // DetailPhoto
-    }
+      DetailPhoto
+    },
+    data(){
+      return {
+        showModal: false
+      }
+    },
+    methods: {
+      toggleModalHandler: function(){
+        this.showModal = !this.showModal
+      }
+    },
   }
 </script>
 
@@ -66,12 +76,6 @@
       
       img {
         width: 100%;
-      }
-    }
-
-    .card:hover {
-      img {
-        
       }
     }
   }
