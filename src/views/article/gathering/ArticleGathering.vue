@@ -5,8 +5,11 @@
 </template>
 
 <script>
+
   export default {
-    name: 'ArticleGathering'
+    name: 'ArticleGathering',
+    components: {
+    }
   }
 </script>
 
