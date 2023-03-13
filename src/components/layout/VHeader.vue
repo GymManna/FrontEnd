@@ -8,8 +8,8 @@
       <router-link to="/photo"> <button>운동 인증해요</button> </router-link>
     </nav>
     <div class="user-page">
-      <a href="/joinedgathering">마이페이지</a>
-      <a href="/">로그아웃</a>
+      <router-link to="/joinedgathering">마이페이지</router-link>
+      <router-link to="/">로그아웃</router-link>
     </div>
   </div>
 </template>
@@ -37,6 +37,7 @@
         width: 150px;
       }
     }
+
     nav {
       display: flex;
       flex-direction: row;
@@ -46,12 +47,12 @@
         color: #2c3e50;
         
         button {
-        width: 200px;
-        height: 50px;
-        border: none;
-        background-color: #FFDC5D;
-        cursor: pointer;
-        font-size: 18px;
+          width: 200px;
+          height: 50px;
+          border: none;
+          background-color: #FFDC5D;
+          cursor: pointer;
+          font-size: 18px;
         }
 
         button:hover {
