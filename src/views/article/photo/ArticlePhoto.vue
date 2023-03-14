@@ -2,7 +2,9 @@
   <div class="container">
     <div class="btn-container">
       <router-link to="/photo/create">
-        <button class="btn">
+        <button 
+        @click="newPost"
+        class="btn">
           인증하기
         </button>
       </router-link>
@@ -50,6 +52,8 @@
 <script>
   import DetailPhoto from "./DetailPhoto.vue";
   
+  const baseUrl = process.env.VUE_APP_API_URL;
+
   export default {
     name: 'ArticlePhoto',
     components: {
@@ -63,6 +67,15 @@
     methods: {
       toggleModalHandler: function(){
         this.showModal = !this.showModal
+      },
+      newPost: function() {
+        this.$axios.get(
+          `${baseUrl}/article/photo`
+        ).then(res => {
+          console.log(res);
+        }).catch(err => {
+          console.log(err);
+        })
       }
     },
   }
