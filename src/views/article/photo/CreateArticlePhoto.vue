@@ -1,24 +1,65 @@
 <template>
   <div class="container">
-    <form class="form">
+    <form
+      @submit="uploadPost" 
+      class="form">
       <div role="form" class="form-input">
-        <input type="text" placeholder="제목을 입력하세요" class="form-input-title">
-        <input type="file" accept="image/*" class="form-input-photo">
+        <input type="text" name="title" v-model="title" class="form-input-title" placeholder="제목을 입력하세요">
+        <input type="file" ref="fileInput" name="photoImage" class="form-input-photo" @change="uploadImage">
       </div>
-      
-      <textarea name="photoContent" id="photoContent" cols="30" rows="10" maxlength="500">
-      </textarea>
-
-      <button type="submit" class="btn">
-        업로드하기
-      </button>
+      <textarea name="content" v-model="content" id="content" maxlength="500"></textarea>
+      <button type="submit" class="button"> 업로드하기 </button>
     </form>
   </div>
 </template>
 
 <script>
+  const baseUrl = process.env.VUE_APP_API_URL;
+
   export default {
-    name: 'CreateArticlePhoto'
+    name: 'CreateArticlePhoto',
+    data(){
+      return {
+        author: "admin",
+        title: this.title,
+        content: this.content,
+        image: null,
+        imageUrl: null
+      }
+    },
+    methods: {
+      uploadImage(event) {
+        this.image = event.target.files[0];
+      },
+      uploadPost() {
+        event.preventDefault();
+
+        const data = {
+          userId: this.author,
+          articlePtitle: this.title,
+          articlePcontent: this.content
+        }
+        console.log(this.author, this.title, this.content);
+
+        this.$axios.post(
+          `${baseUrl}/article/photo`, data
+        ).then(res => {
+          
+          console.log("게시글 등록 res: ", res);
+
+          // const formData = new FormData(); // formData 생성 후
+          // formData.append("userId", this.author); // 글 작성자(더미데이터)
+          // formData.append("articlePtitle", this.title); // 글 제목
+          // formData.append("articlePcontent", this.content); // 글 내용
+          // formData.append("image", this.image); // 이미지
+
+          // axios 한 번 더 보내기
+          // baseUrl/article/photo/${articlePNum}/images
+        }).catch(err => {
+          console.log(err);
+        })
+      },
+    }
   }
 </script>
 
@@ -49,22 +90,20 @@
         .form-input-photo {
           width: 40%;
         }
-
-        
       }
-      .btn {
-          width: 200px;
-          height: 50px;
-          margin: 0 auto;
-          border: none;
-          background-color: #FFDC5D;
-          cursor: pointer;
-          font-size: 18px;
-        }
+      .button {
+        width: 200px;
+        height: 50px;
+        margin: 0 auto;
+        border: none;
+        background-color: #FFDC5D;
+        cursor: pointer;
+        font-size: 18px;
+      }
 
-        .btn:hover {
-          background-color: #ffce1d;
-        }
+      .button:hover {
+        background-color: #ffce1d;
+      }
     }
   }
 </style>
