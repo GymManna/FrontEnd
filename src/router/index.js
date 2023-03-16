@@ -82,7 +82,7 @@ const routes = [
     },
     {
       path: "/photo/:id",
-      // name: "DetailArticlePhoto",
+      name: "DetailArticlePhoto",
       component: DetailArticlePhoto,
       
     },

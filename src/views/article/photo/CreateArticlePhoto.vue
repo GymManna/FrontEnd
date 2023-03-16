@@ -34,27 +34,18 @@
       uploadPost() {
         event.preventDefault();
 
-        const data = {
-          userId: this.author,
-          articlePtitle: this.title,
-          articlePcontent: this.content
-        }
-        console.log(this.author, this.title, this.content);
+        const formData = new FormData(); // formData 생성 후
+        formData.append("userId", this.author); // 글 작성자(더미데이터)
+        formData.append("articlePtitle", this.title); // 글 제목
+        formData.append("articlePcontent", this.content); // 글 내용
+        formData.append("image", this.image); // 이미지
 
-        this.$axios.post(
-          `${baseUrl}/article/photo`, data
-        ).then(res => {
-          
-          console.log("게시글 등록 res: ", res);
-
-          // const formData = new FormData(); // formData 생성 후
-          // formData.append("userId", this.author); // 글 작성자(더미데이터)
-          // formData.append("articlePtitle", this.title); // 글 제목
-          // formData.append("articlePcontent", this.content); // 글 내용
-          // formData.append("image", this.image); // 이미지
-
-          // axios 한 번 더 보내기
-          // baseUrl/article/photo/${articlePNum}/images
+        this.$axios.post(`${baseUrl}/article/photo`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(res => {
+          console.log(res);
         }).catch(err => {
           console.log(err);
         })
