@@ -6,20 +6,14 @@
 
       <div class="modal">
         <div class="modal-main">
-
           <div class="modal-img">
             <img src="../../../assets/images/img1.jpeg" alt="오운완 상세이미지">
           </div>
 
           <div class="modal-board">
             <div class="modal-board-contents">
-              <p class="modal-board-contents-title">
-                김종국입니다.
-              </p>
-              <p class="modal-board-contents-content">
-                인증됨
-진심 광고 촬영하면서 운동 더하고 싶어진건 처음 ㅋ 자세 잘나오고 진심 안다치겠더라 ㅎ 입어보세요 절대 후회 안함 ^^ #젝시믹스 #레깅스 #스포츠웨어 #운동복 This probably was the first time ever that wanted to keep shootin the commercial! Workin out on set . Comfy fit n holds perfect! Feelin unscathed! #Xexymix #Sportswear #TryThis #WontRegretIt
-              </p>
+              <p class="modal-board-contents-title"> </p>
+              <p class="modal-board-contents-content"> </p>
             </div>
 
             <div class="modal-board-comment">
@@ -40,9 +34,7 @@
               </form>
             </div>
           </div>
-
         </div>
-
       </div>
   </div>
 </template>
@@ -92,6 +84,7 @@
           display: flex;
           align-items: center;
           background-color: #000000;
+          
           img {
             width: 100%;
           }
@@ -104,7 +97,6 @@
 
           .modal-board-contents {
             height: 40%;
-
             display: flex;
             flex-direction: column;
             text-align: left;
@@ -156,22 +148,18 @@
               position: absolute;
               left: 0;
               bottom: 0;
-              
               width: 100%;
               height: 50px;
               display: flex;
               flex-direction: row;
               border-top: 1px solid #999999;
-              
               outline: none;
-
               background-color: #ffffff;
               z-index: 999;
 
               input {
                 width: 80%;
                 border: none;
-                
                 outline: none;
               }
 
@@ -186,9 +174,5 @@
         }
       }
     }
-  }
-  .container::before {
-    content: "";
-    
   }
 </style>
