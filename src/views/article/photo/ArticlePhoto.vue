@@ -8,7 +8,7 @@
     
     <div class="card-container">
       <div v-for="image, i in imageArray" :key="i" @click="toggleModalHandler" class="card">
-        <img :src="imageUrl || imageError" :alt="i + 1 + '번 이미지 썸네일'">
+        <img :src="imageUrl || imageError" :alt="i + 1 + '번 이미지'">
       </div>
     </div>
   </div>
@@ -41,10 +41,10 @@
         this.$axios.get(
           `${baseUrl}/article/photo`
         ).then(res => {
-          console.log(res);
+          console.log("[ArticlePhoto] ", res);
           this.imageArray = res.data;
         }).catch(err => {
-          console.log(err)
+          console.log("[ArticlePhoto] ", err)
         })
       },
     },

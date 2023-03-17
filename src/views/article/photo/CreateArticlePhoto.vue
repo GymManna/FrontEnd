@@ -45,9 +45,12 @@
             'Content-Type': 'multipart/form-data'
           }
         }).then(res => {
-          console.log(res);
+          console.log("[CreateArticlePhoto]", res);
+
+          
         }).catch(err => {
-          console.log(err);
+          console.log("[CreateArticlePhoto]", err);
+          if(err.code == 'ERR_BAD_REQUEST') alert('이미지를 첨부해 주세요.');
         })
       },
     }
