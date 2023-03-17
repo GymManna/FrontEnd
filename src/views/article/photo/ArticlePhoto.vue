@@ -43,6 +43,8 @@
         ).then(res => {
           console.log("[ArticlePhoto] ", res);
           this.imageArray = res.data;
+          this.imageUrl = res.data[0].articleImgurl;
+          console.log(res.data.articleImgurl);
         }).catch(err => {
           console.log("[ArticlePhoto] ", err)
         })
