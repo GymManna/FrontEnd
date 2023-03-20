@@ -8,7 +8,7 @@
       <router-link to="/photo"> <button>운동 인증해요</button> </router-link>
     </nav>
     <div class="user-page">
-      <router-link to="/joinedgathering">마이페이지</router-link>
+      <router-link to="/mypage">마이페이지</router-link>
       <router-link to="/">로그아웃</router-link>
     </div>
   </div>
