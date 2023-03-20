@@ -6,6 +6,8 @@
         <option value="pilates">필라테스</option>
       </select>
       <input type="text" />
+      <button @click="searchCenter()">검색</button>
+
       <div>
         <button @click="createGathering()">새 만나 작성</button>
       </div>
@@ -29,6 +31,9 @@ export default {
   components: { GatheringMainMap },
   name: "ArticleGatheringView",
   methods: {
+    searchCenter() {
+      console.log("@@ searchCenter() 실행");
+    },
     createGathering() {
       console.log("@@ createGathering() 실행");
       this.$moveTo("/gathering/create");
