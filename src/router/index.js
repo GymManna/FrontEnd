@@ -5,13 +5,16 @@ import SignIn from "../views/auth/SignIn";
 import SignInEmail from "../views/auth/SignInEmail";
 import SignUp from "../views/auth/SignUp";
 import SignUpKakao from "../views/auth/SignUpKakao";
-import MyPageMenu from "../views/user/MyPageMenu";
+
+// user
+import MyPage from "@/views/user/MyPageView";
+import MyPageMenu from "@/components/user/MyPageMenu";
+import JoinedGathering from "@/components/user/JoinedGathering";
+import MyCommGathering from "@/components/user/MyCommGathering";
+import MyCommPhoto from "@/components/user/MyCommPhoto";
+import EditMyInfo from "@/components/user/EditMyInfo";
 
 // gathering
-import JoinedGathering from "../views/user/JoinedGathering";
-import MyCommGathering from "../views/user/MyCommGathering";
-import MyCommPhoto from "../views/user/MyCommPhoto";
-import EditMyInfo from "../views/user/EditMyInfo";
 import ArticleGathering from "../views/article/gathering/ArticleGathering";
 
 // photo
@@ -44,29 +47,32 @@ const routes = [
       component: SignUpKakao,
     },
     {
-      path: "/mypagemenu",
-      name: "MyPageMenu",
-      component: MyPageMenu,
-    },
-    {
-      path: "/joinedgathering",
-      name: "JoinedGathering",
-      component: JoinedGathering,
-    },
-    {
-      path: "/mycommgathering",
-      name: "MyCommGathering",
-      component: MyCommGathering,
-    },
-    {
-      path: "/mycommphoto",
-      name: "MyCommPhoto",
-      component: MyCommPhoto,
-    },
-    {
-      path: "/editmyinfo",
-      name: "EditMyInfo",
-      component: EditMyInfo,
+      path: "/mypage",
+      name: "MyPage",
+      component: MyPage,
+      redirect: "/mypage/joinedgathering",
+      children: [
+        {
+          path: 'mypagemenu',
+          component: MyPageMenu
+        },
+        {
+          path: 'joinedgathering',
+          component: JoinedGathering
+        },
+        {
+          path: 'mycommgathering',
+          component: MyCommGathering
+        },
+        {
+          path: "mycommphoto",
+          component: MyCommPhoto,
+        },
+        {
+          path: "editmyinfo",
+          component: EditMyInfo,
+        },
+      ]
     },
     {
       path: "/gathering",

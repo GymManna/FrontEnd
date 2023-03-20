@@ -21,9 +21,6 @@
         var serverIP = process.env.VUE_APP_SERVER_IP,
           serverPort = process.env.VUE_APP_SERVER_PORT,
           pageUrl = "mygym/user/login";
-        // var serverIP = "localhost",
-        //   serverPort = "8080",
-        //   pageUrl = "mygym/user/login";
         this.$axios({
           url: `http://${serverIP}:${serverPort}/${pageUrl}`,
           method: "GET",
@@ -36,6 +33,14 @@
           .then((result) => {
             console.log("axios 성공");
             console.log(result);
+            if (result.data == "user/loginSuccess") {
+              console.log("@@ 로그인 성공");
+              alert("로그인 성공!")
+              this.$moveTo("/gathering");
+            } else {
+              console.log("@@ 로그인 실패");
+              alert("로그인 실패");
+            }
           })
           .catch((error) => {
             console.log("axios 실패");
