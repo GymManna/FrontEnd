@@ -15,7 +15,11 @@ import MyCommPhoto from "@/components/user/MyCommPhoto";
 import EditMyInfo from "@/components/user/EditMyInfo";
 
 // gathering
-import ArticleGathering from "../views/article/gathering/ArticleGathering";
+import ArticleGathering from "../views/article/gathering/ArticleGatheringView";
+// import GatheringMainMap from "@/components/gathering/GatheringMainMap";
+import DetailArticleGathering from "../views/article/gathering/DetailArticleGatheringView";
+import CreateArticleGathering from "../views/article/gathering/CreateArticleGatheringView";
+import EditArticleGathering from "../views/article/gathering/EditArticleGatheringView";
 
 // photo
 import ArticlePhoto from "../views/article/photo/ArticlePhoto";
@@ -53,24 +57,24 @@ const routes = [
       redirect: "/mypage/joinedgathering",
       children: [
         {
-          path: 'mypagemenu',
+          path: "mypagemenu",
           component: MyPageMenu
         },
         {
-          path: 'joinedgathering',
+          path: "joinedgathering",
           component: JoinedGathering
         },
         {
-          path: 'mycommgathering',
+          path: "mycommgathering",
           component: MyCommGathering
         },
         {
           path: "mycommphoto",
-          component: MyCommPhoto,
+          component: MyCommPhoto
         },
         {
           path: "editmyinfo",
-          component: EditMyInfo,
+          component: EditMyInfo
         },
       ]
     },
@@ -78,7 +82,24 @@ const routes = [
       path: "/gathering",
       name: "ArticleGathering",
       component: ArticleGathering,
-      
+      // children: [
+      //   {
+      //     path: "gatheringmainmap",
+      //     component: GatheringMainMap
+      //   }
+      // ]
+    },
+    {
+      path: "/gathering/detail",
+      component: DetailArticleGathering,
+    },
+    {
+      path: "/gathering/create",
+      component: CreateArticleGathering,
+    },
+    {
+      path: "/gathering/edit",
+      component: EditArticleGathering,
     },
     {
       path: "/photo",
