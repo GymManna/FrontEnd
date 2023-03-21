@@ -20,9 +20,15 @@
 
             <div class="modal-board-comment">
               <div  class="modal-board-comment-inner">
-                <div v-for="comment in commentData" :key="comment.commentPnum" class="modal-board-comment-content">
-                  <p>{{ comment.userNickname }}</p>
-                  <p>{{ comment.commentPcontent }}</p>
+                <div v-for="comment in commentData" :key="comment.commentPnum" class="comment">
+                  <div class="comment-text">
+                    <p>{{ comment.userNickname }}</p>
+                    <p>{{ comment.commentPcontent }}</p>
+                  </div>
+                  <div class="comment-icons">
+                    <font-awesome-icon @click="deleteComment(comment.commentPnum)" class="fa-x" icon="fa-solid fa-xmark" />
+                    <font-awesome-icon class="fa-x" icon="fa-solid fa-pen" />
+                  </div>
                 </div>
               </div>
 
@@ -74,14 +80,13 @@
         ).then(res => {
           this.commentData = res.data;
         }).catch(err => {
-          console.log("[DetailPhoto 1] ", err);
+          console.log("[DetailPhoto GET] ", err);
         })
       },
       // [댓글 작성]
       createComment(){
         event.preventDefault();
         
-        const articlePnum = this.articlePnum;
         const formData = new FormData();
         formData.append("articlePnum", this.articlePnum);
         formData.append("userNickname", '관리자');
@@ -89,17 +94,27 @@
 
         // [POST]
         this.$axios.post(
-          `${baseUrl}/article/photo/${articlePnum}/comment/`, formData
+          `${baseUrl}/article/photo/${this.articlePnum}/comment/`, formData
 
           // 성공 시
         ).then(() => {
-          
           this.getComment(); // [GET] 함수 실행
           this.comment = ''; // 입력창 초기화
 
           // 실패 시
         }).catch(err => {
-          console.log("[DetailPhoto 2] ", err);
+          console.log("[DetailPhoto CREATE] ", err);
+        })
+      },
+      // [댓글 삭제]
+      deleteComment(commentPnum){
+        this.$axios.delete(`${baseUrl}/article/photo/${this.articlePnum}/comment/${commentPnum}/`, {
+
+        }).then(() => {
+          this.getComment(); // [GET] 함수 실행
+
+        }).catch(err => {
+          console.log("[DetailPhoto DELETE] ", err);
         })
       }
     },
@@ -195,9 +210,22 @@
               overflow: auto;
 
               // 댓글 한 줄 한 줄
-              .modal-board-comment-content { 
+              .comment { 
                 margin-bottom: 10px;
+                padding-right: 20px;
                 border-bottom: 1px solid #ddd;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                .comment-icons {
+                  display: flex;
+                  gap: 10px;
+                  cursor: pointer;
+                }
+
                 p {
                   margin: 0;
                 }
