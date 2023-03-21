@@ -108,7 +108,7 @@ const routes = [
       
     },
     {
-      path: "/photo/:id",
+      path: "/photo/:articlePnum",
       name: "DetailArticlePhoto",
       component: DetailArticlePhoto,
       
