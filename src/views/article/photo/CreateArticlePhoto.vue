@@ -40,16 +40,19 @@
         formData.append("articlePcontent", this.content); // 글 내용
         formData.append("image", this.image); // 이미지
 
-        this.$axios.post(`${baseUrl}/article/photo`, formData, {
+        // [POST]
+        this.$axios.post(`${baseUrl}/article/photo/`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
+          // 성공 시
         }).then(() => {
           alert('게시글 등록 완료');
           this.$router.push({
             path: '/photo'
           });
           
+          // 실패 시
         }).catch(err => {
           console.log("[CreateArticlePhoto]", err);
           if(err.code == 'ERR_BAD_REQUEST') alert('이미지를 첨부해 주세요.');

@@ -8,14 +8,14 @@
 
       <div class="modal">
         <div class="modal-main">
-          <div class="modal-img">
-            <!-- <img :src="image.articleImgurl" @error="setErrorImage" :alt="image.articlePnum + 1 + '번 이미지'"> -->
+          <div v-if="this.articleData[0]" class="modal-img">
+            <img :src="this.articleData[0].articleImgurl" @error="setErrorImage" :alt="this.articleData[0].articlePnum + 1 + '번 이미지'">
           </div>
 
           <div class="modal-board">
-            <div class="modal-board-contents">
-              <p class="modal-board-contents-title"> 하이 </p>
-              <p class="modal-board-contents-content"> 하이 </p>
+            <div v-if="this.articleData[0]" class="modal-board-contents">
+              <p class="modal-board-contents-title"> {{ this.articleData[0].articlePtitle }} </p>
+              <p class="modal-board-contents-content"> {{ this.articleData[0].articlePcontent }} </p>
             </div>
 
             <div class="modal-board-comment">
@@ -46,6 +46,7 @@
       return {
         errorImage: require('@/assets/images/errorImage.png'),
         articlePnum: this.$route.params.articlePnum,
+        articleData: [],
         commentData: [],
         comment: ''
       }
@@ -54,6 +55,17 @@
       // [디폴트 이미지]
       setErrorImage(event){
         event.target.src = this.errorImage;
+      },
+      // [게시글 불러오기]
+      getArticle(){
+        this.$axios.get(
+          `${baseUrl}/article/photo/${this.articlePnum}`
+        ).then(res => {
+          this.articleData = res.data;
+          console.log(this.articleData[0].articleImgurl);
+        }).catch(err => {
+          console.log("[ArticlePhoto] ", err)
+        })
       },
       // [댓글 불러오기]
       getComment(){
@@ -92,6 +104,7 @@
       }
     },
     mounted(){
+      this.getArticle();
       this.getComment();
     }
   }
