@@ -7,10 +7,10 @@
       <input type="text" v-model="articleAuthor" />
       <div>카테고리</div>
       <input type="text" v-model="articleCategory" />
-      <div>작성일</div>
+      <!-- <div>작성일</div>
       <input type="text" v-model="articleDate" />
       <div>참여자 수</div>
-      <input type="text" v-model="articleMember" />
+      <input type="text" v-model="articleMember" /> -->
     </div>
     <br><br><hr>
 
@@ -29,10 +29,10 @@
 
     <div class="content-box">
       <span>내용</span>
-      <textarea rows="10" cols="80" />
+      <textarea rows="10" cols="80" v-model="articleContent"/>
     </div>
 
-    <button @click="func()">새 만나 작성</button>
+    <button @click="createArticleGathering()">새 만나 작성</button>
   </div>
 </template>
 
@@ -47,11 +47,41 @@ export default {
       articleDate: "",
       articleMember: "",
       centerName: "",
+      articleContent: "",
     };
   },
   methods: {
     func() {
       console.log("@@ func() 실행");
+    },
+    createArticleGathering() {
+      console.log("@@ createArticleGathering() 실행");
+      var serverIP = process.env.VUE_APP_SERVER_IP,
+        serverPort = process.env.VUE_APP_SERVER_PORT,
+        pageUrl = "mygym/article/create";
+      this.$axios({
+        url: `http://${serverIP}:${serverPort}/${pageUrl}`,
+        method: "POST",
+        params: {
+          title: this.articleTitle,
+          content: this.articleContent,
+          category: this.articleCategory,
+          userId: this.articleAuthor,
+          centerName: this.centerName,
+        },
+        responseType: "json",
+      })
+        .then((result) => {
+          console.log("axios 성공");
+          console.log(result);
+          // if else 로 회원가입 성공, 실패 조건문 추가할 것
+          this.$moveTo("/gathering");
+        })
+        .catch((error) => {
+          console.log("axios 실패");
+          console.log(error);
+          alert("axios 오류");
+        })
     },
   },
 };
@@ -66,7 +96,7 @@ export default {
     width: flex;
     height: flex;
     grid-template-columns: 20% 80%;
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
 
     background-color: lightgray;
     gap: 10px;

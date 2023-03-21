@@ -56,29 +56,29 @@
             <tr>
               <td>헬리니</td>
               <td>네 가능합니다 ^^
-                <button @click="editArticleGathering()">수정</button>
-                <button @click="deleteArticleGathering()">삭제</button>
+                <button @click="editCommentGathering()">수정</button>
+                <button @click="deleteCommentGathering()">삭제</button>
               </td>
             </tr>
             <tr>
               <td>철순 오피설</td>
               <td>운동 처음 하는데 도와주실 수 있나요?
-                <button @click="editArticleGathering()">수정</button>
-                <button @click="deleteArticleGathering()">삭제</button>
+                <button @click="editCommentGathering()">수정</button>
+                <button @click="deleteCommentGathering()">삭제</button>
               </td>
             </tr>
             <tr>
               <td>헬리니</td>
               <td>궁금한 거 있으시간
-                <button @click="editArticleGathering()">수정</button>
-                <button @click="deleteArticleGathering()">삭제</button>
+                <button @click="editCommentGathering()">수정</button>
+                <button @click="deleteCommentGathering()">삭제</button>
               </td>
             </tr>
             <tr>
               <td>철순 오피셜</td>
               <td>네 가능합니다 ^^
-                <button @click="editArticleGathering()">수정</button>
-                <button @click="deleteArticleGathering()">삭제</button>
+                <button @click="editCommentGathering()">수정</button>
+                <button @click="deleteCommentGathering()">삭제</button>
               </td>
             </tr>
           </tbody>
@@ -118,11 +118,38 @@ export default {
     },
     deleteGathering() {
       console.log("@@ deleteGathering() 실행");
-      this.$moveTo("/gathering");
+      var serverIP = process.env.VUE_APP_SERVER_IP,
+        serverPort = process.env.VUE_APP_SERVER_PORT,
+        pageUrl = "mygym/article/delete";
+      this.$axios({
+        url: `http://${serverIP}:${serverPort}/${pageUrl}`,
+        method: "DELETE",
+        params: {
+          gnum: 1,
+        },
+        responseType: "json",
+      })
+        .then((result) => {
+          console.log("axios 성공");
+          console.log(result);
+          // if else 로 삭제 성공, 실패 조건문 추가할 것
+          this.$moveTo("/gathering");
+        })
+        .catch((error) => {
+          console.log("axios 실패");
+          console.log(error);
+          alert("axios 오류");
+        })
 
     },
     createComment() {
       console.log("@@ createComment() 실행");
+    },
+    editCommentGathering() {
+      console.log("@@ editCommentGathering() 실행");
+    },
+    deleteCommentGathering() {
+      console.log("@@ deleteCommentGathering() 실행");
     }
   },
 };

@@ -39,12 +39,13 @@
           .then((result) => {
             console.log("@@ 카카오 회원가입 성공");
             console.log(result);
+            // if else 로 회원가입 성공, 실패 조건문 추가할 것
             this.$moveTo("/gathering");
           })
           .catch((error) => {
             console.log("@@ 카카오 회원가입 실패");
             console.log(error);
-            alert("회원가입 실패. axios 오류");
+            alert("axios 오류");
           });
       }
     }

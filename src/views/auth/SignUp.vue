@@ -42,10 +42,13 @@
           .then((result) => {
             console.log("axios 성공");
             console.log(result);
+            // if else 로 회원가입 성공, 실패 조건문 추가할 것
+            this.$moveTo("/gathering");
           })
           .catch((error) => {
             console.log("axios 실패");
             console.log(error);
+            alert("axios 오류");
           })
       },
     }
