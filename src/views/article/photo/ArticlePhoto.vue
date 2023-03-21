@@ -7,51 +7,54 @@
     </div>
     
     <div class="card-container">
-      <div v-for="image, i in imageArray" :key="i" @click="toggleModalHandler" class="card">
-        <img :src="imageUrl || imageError" :alt="i + 1 + '번 이미지'">
+      <div v-for="image in imageData" :key="image.articlePnum" class="card">
+        <img :src="image.articleImgurl" @error="setErrorImage" @click="openDetailImage(image.articlePnum)" :alt="image.articlePnum + 1 + '번 이미지'">
       </div>
     </div>
   </div>
-
-  <DetailPhoto v-if="showModal" @close="toggleModalHandler"/>
 </template>
 
 <script>
-  import DetailPhoto from "./DetailPhoto.vue";
   const baseUrl = process.env.VUE_APP_API_URL;
 
   export default {
     name: 'ArticlePhoto',
-    components: {
-      DetailPhoto
-    },
     data(){
       return {
-        showModal: false,
-        imageArray: '',
-        imageUrl: '',
-        imageError: require('@/assets/images/imageError.png')
+        imageData: [],
+        errorImage: require('@/assets/images/errorImage.png'),
+        modalImageData: null,
+        commentData: [],
+        curArticleNum: 0
       }
     },
     methods: {
-      toggleModalHandler: function(){
-        this.showModal = !this.showModal
-      },
-      getArticlePhoto: function(){
+      // [게시글 불러오기]
+      getArticle(){
         this.$axios.get(
-          `${baseUrl}/article/photo`
+          `${baseUrl}/article/photo/`
         ).then(res => {
-          console.log("[ArticlePhoto] ", res);
-          this.imageArray = res.data;
-          // this.imageUrl = res.data[0].articleImgurl;
-          console.log(res.data.articleImgurl);
+          this.imageData = res.data;
         }).catch(err => {
           console.log("[ArticlePhoto] ", err)
         })
       },
+      // [모달 열기(상세페이지 이동)]
+      openDetailImage(articlePnum){
+        this.$router.push({
+          name: 'DetailArticlePhoto',
+          params: {
+            articlePnum
+          }
+        });
+      },
+      // [디폴트 이미지]
+      setErrorImage(event){
+        event.target.src = this.errorImage;
+      },
     },
     mounted(){
-      this.getArticlePhoto()
+      this.getArticle()
     }
   }
 </script>

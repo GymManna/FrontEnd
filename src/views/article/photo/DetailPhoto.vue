@@ -1,35 +1,33 @@
 <template>
   <div class="container" ref="modal">
       <div div class="close-btn">
-        <font-awesome-icon class="fa-3x" @click="$emit('close')" icon="fa-solid fa-xmark" />
+        <router-link to="/photo" >
+          <font-awesome-icon class="fa-3x" icon="fa-solid fa-xmark" />
+        </router-link>
       </div>
 
       <div class="modal">
         <div class="modal-main">
           <div class="modal-img">
-            <img src="../../../assets/images/img1.jpeg" alt="오운완 상세이미지">
+            <!-- <img :src="image.articleImgurl" @error="setErrorImage" :alt="image.articlePnum + 1 + '번 이미지'"> -->
           </div>
 
           <div class="modal-board">
             <div class="modal-board-contents">
-              <p class="modal-board-contents-title"> </p>
-              <p class="modal-board-contents-content"> </p>
+              <p class="modal-board-contents-title"> 하이 </p>
+              <p class="modal-board-contents-content"> 하이 </p>
             </div>
 
             <div class="modal-board-comment">
-              <div class="modal-board-comment-inner">
-                <div class="modal-board-comment-content">
-                  <p>백승전</p>
-                  <p>와 종국이 형님 진짜 대단하십니다..</p>
-                </div>
-                <div class="modal-board-comment-content">
-                  <p>장진희</p>
-                  <p>f45도 같이 해요!</p>
+              <div  class="modal-board-comment-inner">
+                <div v-for="comment in commentData" :key="comment.commentPnum" class="modal-board-comment-content">
+                  <p>{{ comment.userNickname }}</p>
+                  <p>{{ comment.commentPcontent }}</p>
                 </div>
               </div>
 
-              <form class="modal-board-comment-input">
-                <input type="text" value="" placeholder="댓글 달기..">
+              <form @submit="createComment" class="modal-board-comment-input">
+                <input type="text" v-model="comment" placeholder="댓글 달기..">
                 <button type="submit">입력</button>
               </form>
             </div>
@@ -40,9 +38,62 @@
 </template>
 
 <script>
+  const baseUrl = process.env.VUE_APP_API_URL;
 
   export default {
     name: 'DetailPhoto',
+    data(){
+      return {
+        errorImage: require('@/assets/images/errorImage.png'),
+        articlePnum: this.$route.params.articlePnum,
+        commentData: [],
+        comment: ''
+      }
+    },
+    methods: {
+      // [디폴트 이미지]
+      setErrorImage(event){
+        event.target.src = this.errorImage;
+      },
+      // [댓글 불러오기]
+      getComment(){
+        this.$axios.get(
+          `${baseUrl}/article/photo/${this.articlePnum}/comment/`
+        ).then(res => {
+          this.commentData = res.data;
+        }).catch(err => {
+          console.log("[DetailPhoto 1] ", err);
+        })
+      },
+      // [댓글 작성]
+      createComment(){
+        event.preventDefault();
+        
+        const articlePnum = this.articlePnum;
+        const formData = new FormData();
+        formData.append("articlePnum", this.articlePnum);
+        formData.append("userNickname", '관리자');
+        formData.append("commentPcontent", this.comment);
+
+        // [POST]
+        this.$axios.post(
+          `${baseUrl}/article/photo/${articlePnum}/comment/`, formData
+
+          // 성공 시
+        ).then(() => {
+          
+          this.getComment(); // [GET] 함수 실행
+          this.comment = ''; // 입력창 초기화
+
+          // 실패 시
+        }).catch(err => {
+          console.log("[DetailPhoto 2] ", err);
+        })
+      }
+    },
+    mounted(){
+      this.getComment();
+    }
   }
 </script>
 
@@ -115,7 +166,7 @@
               height: 100%;
               overflow: auto;
               padding: 0 20px;
-              font-size: 14px;
+              font-size: 18px;
             }
           }
 
@@ -124,16 +175,16 @@
             height: 60%;
             text-align: left;
             padding-left: 20px;
-            font-size: 14px;
+            font-size: 18px;
 
             .modal-board-comment-inner {
-              height: 100%;
+              height: 90%;
               overflow: auto;
 
               // 댓글 한 줄 한 줄
               .modal-board-comment-content { 
                 margin-bottom: 10px;
-
+                border-bottom: 1px solid #ddd;
                 p {
                   margin: 0;
                 }
@@ -166,8 +217,9 @@
               button {
                 width: 20%;
                 border: none;
-                font-size: 14px;
+                font-size: 18px;
                 background-color: #FFDC5D;
+                margin: 0;
               }
             }
           }

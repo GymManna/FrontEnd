@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <form
-      @submit="uploadPost" 
-      class="form">
+    <form @submit="createPost" class="form">
       <div role="form" class="form-input">
         <input type="text" name="title" v-model="title" class="form-input-title" placeholder="제목을 입력하세요">
         <input type="file" ref="fileInput" name="photoImage" class="form-input-photo" @change="uploadImage">
@@ -28,10 +26,12 @@
       }
     },
     methods: {
+      // [사진 업로드]
       uploadImage(event) {
         this.image = event.target.files[0];
       },
-      uploadPost() {
+      // [게시글 생성]
+      createPost() {
         event.preventDefault();
 
         const formData = new FormData(); // formData 생성 후
@@ -44,9 +44,11 @@
           headers: {
             'Content-Type': 'multipart/form-data'
           }
-        }).then(res => {
-          console.log("[CreateArticlePhoto]", res);
-
+        }).then(() => {
+          alert('게시글 등록 완료');
+          this.$router.push({
+            path: '/photo'
+          });
           
         }).catch(err => {
           console.log("[CreateArticlePhoto]", err);
