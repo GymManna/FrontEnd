@@ -6,7 +6,6 @@
     <button @click="deleteGathering()">삭제</button>
     <div class="info-box">
       <input type="hidden" v-model="articleGnum" />
-      <input type="hidden" v-model="userId" />
       <div>제목</div>
       <input type="text" v-model="articleTitle" />
       <div>만나장</div>
@@ -97,8 +96,8 @@ export default {
   name: "DetailArticleGatheringView",
   data() {
     return {
+      userId: "ccccc", // 세션 정보로 넣을 것
       articleGnum: "3",
-      userId: "ccccc",
       articleTitle: "디폴트 제목 있음",
       articleAuthor: "글 작성자",
       articleCategory: "헬스",
