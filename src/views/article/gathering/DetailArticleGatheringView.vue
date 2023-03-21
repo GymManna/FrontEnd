@@ -5,6 +5,7 @@
     <button @click="editGathering()">수정</button>
     <button @click="deleteGathering()">삭제</button>
     <div class="info-box">
+      <input type="hidden" v-model="articleGnum" />
       <div>제목</div>
       <input type="text" v-model="articleTitle" />
       <div>만나장</div>
@@ -56,36 +57,37 @@
             <tr>
               <td>헬리니</td>
               <td>네 가능합니다 ^^
-                <button @click="editArticleGathering()">수정</button>
-                <button @click="deleteArticleGathering()">삭제</button>
+                <button @click="editCommentGathering()">수정</button>
+                <button @click="deleteCommentGathering()">삭제</button>
               </td>
             </tr>
             <tr>
               <td>철순 오피설</td>
               <td>운동 처음 하는데 도와주실 수 있나요?
-                <button @click="editArticleGathering()">수정</button>
-                <button @click="deleteArticleGathering()">삭제</button>
+                <button @click="editCommentGathering()">수정</button>
+                <button @click="deleteCommentGathering()">삭제</button>
               </td>
             </tr>
             <tr>
               <td>헬리니</td>
               <td>궁금한 거 있으시간
-                <button @click="editArticleGathering()">수정</button>
-                <button @click="deleteArticleGathering()">삭제</button>
+                <button @click="editCommentGathering()">수정</button>
+                <button @click="deleteCommentGathering()">삭제</button>
               </td>
             </tr>
             <tr>
               <td>철순 오피셜</td>
               <td>네 가능합니다 ^^
-                <button @click="editArticleGathering()">수정</button>
-                <button @click="deleteArticleGathering()">삭제</button>
+                <button @click="editCommentGathering()">수정</button>
+                <button @click="deleteCommentGathering()">삭제</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <button @click="func()">만나 신청</button>
+    <button @click="joinGathering()">만나 신청</button>
+    <button @click="cancelGathering()">만나 신청 취소</button>
   </div>
 </template>
 
@@ -94,6 +96,8 @@ export default {
   name: "DetailArticleGatheringView",
   data() {
     return {
+      userId: "ccccc", // 세션 정보로 넣을 것
+      articleGnum: "3",
       articleTitle: "디폴트 제목 있음",
       articleAuthor: "글 작성자",
       articleCategory: "헬스",
@@ -118,11 +122,96 @@ export default {
     },
     deleteGathering() {
       console.log("@@ deleteGathering() 실행");
-      this.$moveTo("/gathering");
+      var serverIP = process.env.VUE_APP_SERVER_IP,
+        serverPort = process.env.VUE_APP_SERVER_PORT,
+        pageUrl = "mygym/article/delete";
+      this.$axios({
+        url: `http://${serverIP}:${serverPort}/${pageUrl}`,
+        method: "DELETE",
+        params: {
+          gnum: 1,
+        },
+        responseType: "json",
+      })
+        .then((result) => {
+          console.log("axios 성공");
+          console.log(result);
+          // if else 로 삭제 성공, 실패 조건문 추가할 것
+          this.$moveTo("/gathering");
+        })
+        .catch((error) => {
+          console.log("axios 실패");
+          console.log(error);
+          alert("axios 오류");
+        })
 
     },
     createComment() {
       console.log("@@ createComment() 실행");
+    },
+    editCommentGathering() {
+      console.log("@@ editCommentGathering() 실행");
+    },
+    deleteCommentGathering() {
+      console.log("@@ deleteCommentGathering() 실행");
+    },
+    joinGathering() {
+      console.log("@@ joinGathering() 실행");
+      var serverIP = process.env.VUE_APP_SERVER_IP,
+        serverPort = process.env.VUE_APP_SERVER_PORT,
+        pageUrl = "mygym/article/joinUser";
+      this.$axios({
+        url: `http://${serverIP}:${serverPort}/${pageUrl}`,
+        method: "POST",
+        params: {
+          userId: this.articleAuthor,
+          articleGnum: this.articleGnum,
+        },
+        responseType: "json",
+      })
+        .then((result) => {
+          console.log("axios 성공");
+          console.log(result);
+          if (result.data == true) {
+            alert("만나 신청 완료!");
+          } else {
+            alert("만나 신청 실패");
+          }
+        })
+        .catch((error) => {
+          console.log("axios 실패");
+          console.log(error);
+          alert("axios 오류");
+        })
+    },
+    cancelGathering() {
+      console.log("@@ cancelGathering() 실행");
+      var serverIP = process.env.VUE_APP_SERVER_IP,
+        serverPort = process.env.VUE_APP_SERVER_PORT,
+        pageUrl = "mygym/article/cancelUser";
+      this.$axios({
+        url: `http://${serverIP}:${serverPort}/${pageUrl}`,
+        method: "DELETE",
+        params: {
+          userId: this.articleAuthor,
+          articleGnum: this.articleGnum,
+        },
+        responseType: "json",
+      })
+        .then((result) => {
+          console.log("axios 성공");
+          console.log(result);
+          if (result.data == true) {
+            alert("만나 취소 완료!");
+          } else {
+            alert("만나 취소 실패");
+          }
+        })
+        .catch((error) => {
+          console.log("axios 실패");
+          console.log(error);
+          alert("axios 오류");
+        })
     }
   },
 };
