@@ -8,7 +8,7 @@
       <div>제목</div>
       <input type="text" v-model="articleTitle" />
       <div>만나장</div>
-      <input type="text" v-model="articleAuthor" />
+      <input type="text" v-model="articleAuthor" disabled />
       <div>카테고리</div>
       <input type="text" v-model="articleCategory" />
       <div>작성일</div>
@@ -45,7 +45,7 @@ export default {
   name: "EditArticleGatheringView",
   data() {
     return {
-      articleGNum: "1",
+      articleGnum: "1",
       articleTitle: "디폴트 제목 있음",
       articleAuthor: "글 작성자",
       articleCategory: "헬스",
@@ -71,6 +71,7 @@ export default {
         url: `http://${serverIP}:${serverPort}/${pageUrl}`,
         method: "PUT",
         params: {
+          articleGnum: this.articleGnum,
           title: this.articleTitle,
           content: this.articleContent,
           category: this.articleCategory,

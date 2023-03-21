@@ -42,7 +42,7 @@ export default {
         pageUrl = "mygym/user/update";
       this.$axios({
         url: `http://${serverIP}:${serverPort}/${pageUrl}`,
-        method: "POST",
+        method: "PUT",
         params: {
           userId: this.id,
           userName: this.name,
@@ -55,6 +55,7 @@ export default {
         .then((result) => {
           console.log("axios 성공");
           console.log(result);
+          alert("회원정보 수정 완료");
         })
         .catch((error) => {
           console.log("axios 실패");
@@ -81,6 +82,8 @@ export default {
         .then((result) => {
           console.log("axios 성공");
           console.log(result);
+          alert("회원 탈퇴되었습니다.");
+          this.$moveTo("/");
         })
         .catch((error) => {
           console.log("axios 실패");
