@@ -1,35 +1,39 @@
 <template>
   <div class="container" ref="modal">
       <div div class="close-btn">
-        <font-awesome-icon class="fa-3x" @click="$emit('close')" icon="fa-solid fa-xmark" />
+        <router-link to="/photo" >
+          <font-awesome-icon class="fa-3x" icon="fa-solid fa-xmark" />
+        </router-link>
       </div>
 
       <div class="modal">
         <div class="modal-main">
-          <div class="modal-img">
-            <img src="../../../assets/images/img1.jpeg" alt="오운완 상세이미지">
+          <div v-if="this.articleData[0]" class="modal-img">
+            <img :src="this.articleData[0].articleImgurl" @error="setErrorImage" :alt="this.articleData[0].articlePnum + 1 + '번 이미지'">
           </div>
 
           <div class="modal-board">
-            <div class="modal-board-contents">
-              <p class="modal-board-contents-title"> </p>
-              <p class="modal-board-contents-content"> </p>
+            <div v-if="this.articleData[0]" class="modal-board-contents">
+              <p class="modal-board-contents-title"> {{ this.articleData[0].articlePtitle }} </p>
+              <p class="modal-board-contents-content"> {{ this.articleData[0].articlePcontent }} </p>
             </div>
 
             <div class="modal-board-comment">
-              <div class="modal-board-comment-inner">
-                <div class="modal-board-comment-content">
-                  <p>백승전</p>
-                  <p>와 종국이 형님 진짜 대단하십니다..</p>
-                </div>
-                <div class="modal-board-comment-content">
-                  <p>장진희</p>
-                  <p>f45도 같이 해요!</p>
+              <div  class="modal-board-comment-inner">
+                <div v-for="comment in commentData" :key="comment.commentPnum" class="comment">
+                  <div class="comment-text">
+                    <p>{{ comment.userNickname }}</p>
+                    <p>{{ comment.commentPcontent }}</p>
+                  </div>
+                  <div class="comment-icons">
+                    <font-awesome-icon @click="deleteComment(comment.commentPnum)" class="fa-x" icon="fa-solid fa-xmark" />
+                    <font-awesome-icon class="fa-x" icon="fa-solid fa-pen" />
+                  </div>
                 </div>
               </div>
 
-              <form class="modal-board-comment-input">
-                <input type="text" value="" placeholder="댓글 달기..">
+              <form @submit="createComment" class="modal-board-comment-input">
+                <input type="text" v-model="comment" placeholder="댓글 달기..">
                 <button type="submit">입력</button>
               </form>
             </div>
@@ -40,9 +44,84 @@
 </template>
 
 <script>
+  const baseUrl = process.env.VUE_APP_API_URL;
 
   export default {
     name: 'DetailPhoto',
+    data(){
+      return {
+        errorImage: require('@/assets/images/errorImage.png'),
+        articlePnum: this.$route.params.articlePnum,
+        articleData: [],
+        commentData: [],
+        comment: ''
+      }
+    },
+    methods: {
+      // [디폴트 이미지]
+      setErrorImage(event){
+        event.target.src = this.errorImage;
+      },
+      // [게시글 불러오기]
+      getArticle(){
+        this.$axios.get(
+          `${baseUrl}/article/photo/${this.articlePnum}`
+        ).then(res => {
+          this.articleData = res.data;
+          console.log(this.articleData[0].articleImgurl);
+        }).catch(err => {
+          console.log("[ArticlePhoto] ", err)
+        })
+      },
+      // [댓글 불러오기]
+      getComment(){
+        this.$axios.get(
+          `${baseUrl}/article/photo/${this.articlePnum}/comment/`
+        ).then(res => {
+          this.commentData = res.data;
+        }).catch(err => {
+          console.log("[DetailPhoto GET] ", err);
+        })
+      },
+      // [댓글 작성]
+      createComment(){
+        event.preventDefault();
+        
+        const formData = new FormData();
+        formData.append("articlePnum", this.articlePnum);
+        formData.append("userNickname", '관리자');
+        formData.append("commentPcontent", this.comment);
+
+        // [POST]
+        this.$axios.post(
+          `${baseUrl}/article/photo/${this.articlePnum}/comment/`, formData
+
+          // 성공 시
+        ).then(() => {
+          this.getComment(); // [GET] 함수 실행
+          this.comment = ''; // 입력창 초기화
+
+          // 실패 시
+        }).catch(err => {
+          console.log("[DetailPhoto CREATE] ", err);
+        })
+      },
+      // [댓글 삭제]
+      deleteComment(commentPnum){
+        this.$axios.delete(`${baseUrl}/article/photo/${this.articlePnum}/comment/${commentPnum}/`, {
+
+        }).then(() => {
+          this.getComment(); // [GET] 함수 실행
+
+        }).catch(err => {
+          console.log("[DetailPhoto DELETE] ", err);
+        })
+      }
+    },
+    mounted(){
+      this.getArticle();
+      this.getComment();
+    }
   }
 </script>
 
@@ -115,7 +194,7 @@
               height: 100%;
               overflow: auto;
               padding: 0 20px;
-              font-size: 14px;
+              font-size: 18px;
             }
           }
 
@@ -124,15 +203,28 @@
             height: 60%;
             text-align: left;
             padding-left: 20px;
-            font-size: 14px;
+            font-size: 18px;
 
             .modal-board-comment-inner {
-              height: 100%;
+              height: 90%;
               overflow: auto;
 
               // 댓글 한 줄 한 줄
-              .modal-board-comment-content { 
+              .comment { 
                 margin-bottom: 10px;
+                padding-right: 20px;
+                border-bottom: 1px solid #ddd;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                .comment-icons {
+                  display: flex;
+                  gap: 10px;
+                  cursor: pointer;
+                }
 
                 p {
                   margin: 0;
@@ -166,8 +258,9 @@
               button {
                 width: 20%;
                 border: none;
-                font-size: 14px;
+                font-size: 18px;
                 background-color: #FFDC5D;
+                margin: 0;
               }
             }
           }
