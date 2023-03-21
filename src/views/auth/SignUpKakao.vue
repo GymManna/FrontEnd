@@ -1,15 +1,53 @@
 <template>
   <div class="container">
-    <span> E-mail </span> <input type="text" value="cheolsu-official@kakao.com" readonly>
-    <span> 이름 </span> <input type="text">
-    <span> 닉네임 </span> <input type="text">
+    <span> E-mail </span> <input type="text" v-model="id" disabled>
+    <span> 이름 </span> <input type="text" v-model="name">
+    <span> 닉네임 </span> <input type="text" v-model="nickname">
   </div>
-    <button> 회원가입 </button>
+    <button @click="registerKakao()"> 회원가입 </button>
 </template>
 
 <script>
   export default {
-    name: 'SignUpKakao'
+    name: 'SignUpKakao',
+    data() {
+      return {
+        id: "cheolsu-official@kakao.com",
+        name: "",
+        nickname: "철수철수"
+      }
+    },
+    methods: {
+      func() {
+        console.log("@@ func() 실행");
+      },
+      registerKakao() {
+        console.log("@@ registerKakao() 실행");
+        var serverIP = process.env.VUE_APP_SERVER_IP,
+          serverPort = process.env.VUE_APP_SERVER_PORT,
+          pageUrl = "mygym/user/registeruserkakao";
+        this.$axios({
+          url: `http://${serverIP}:${serverPort}/${pageUrl}`,
+          method: "POST",
+          params: {
+            userId: this.id,
+            userName: this.name,
+            userNickname: this.nickname,
+          },
+          responseType: "json",
+        })
+          .then((result) => {
+            console.log("@@ 카카오 회원가입 성공");
+            console.log(result);
+            this.$moveTo("/gathering");
+          })
+          .catch((error) => {
+            console.log("@@ 카카오 회원가입 실패");
+            console.log(error);
+            alert("회원가입 실패. axios 오류");
+          });
+      }
+    }
   }
 </script>
 
