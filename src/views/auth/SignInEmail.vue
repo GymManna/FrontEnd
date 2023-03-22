@@ -7,49 +7,56 @@
 </template>
 
 <script>
-  export default {
-    name: 'SignInEmail',
-    data() {
-      return {
-        userId: "",
-        userPw: ""
-      };
-    },
-    methods: {
-      userLogin() {
-        console.log("@@ userLogin() 실행");
-        var serverIP = process.env.VUE_APP_SERVER_IP,
-          serverPort = process.env.VUE_APP_SERVER_PORT,
-          pageUrl = "mygym/user/login";
-        this.$axios({
-          url: `http://${serverIP}:${serverPort}/${pageUrl}`,
-          method: "GET",
-          params: {
-            userId: this.userId,
-            userPw: this.userPw
-          },
-          responseType: "json",
+import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
+
+export default {
+  name: 'SignInEmail',
+  data() {
+    return {
+      userId: "",
+      userPw: ""
+    };
+  },
+  computed: {
+    ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+  },
+  methods: {
+    ...mapActions(["setVuexId"]), // Vuex-actions 활용
+    userLogin() {
+      console.log("@@ userLogin() 실행");
+      var serverIP = process.env.VUE_APP_SERVER_IP,
+        serverPort = process.env.VUE_APP_SERVER_PORT,
+        pageUrl = "mygym/user/login";
+      this.$axios({
+        url: `http://${serverIP}:${serverPort}/${pageUrl}`,
+        method: "GET",
+        params: {
+          userId: this.userId,
+          userPw: this.userPw
+        },
+        responseType: "json",
+      })
+        .then((result) => {
+          console.log("axios 성공");
+          console.log(result);
+          if (result.data == "user/loginSuccess") {
+            console.log("@@ 로그인 성공");
+            alert("로그인 성공!")
+            this.setVuexId(this.userId);
+            this.$moveTo("/gathering");
+          } else {
+            console.log("@@ 로그인 실패");
+            alert("로그인 실패");
+          }
         })
-          .then((result) => {
-            console.log("axios 성공");
-            console.log(result);
-            if (result.data == "user/loginSuccess") {
-              console.log("@@ 로그인 성공");
-              alert("로그인 성공!")
-              this.$moveTo("/gathering");
-            } else {
-              console.log("@@ 로그인 실패");
-              alert("로그인 실패");
-            }
-          })
-          .catch((error) => {
-            console.log("axios 실패");
-            console.log(error);
-          })
-        
-      }
-    }
+        .catch((error) => {
+          console.log("axios 실패");
+          console.log(error);
+        })
+      
+    },
   }
+}
 </script>
 
 <style lang="scss" scoped>

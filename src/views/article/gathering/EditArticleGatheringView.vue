@@ -4,7 +4,7 @@
     <button @click="func()">클릭실험</button>
 
     <div class="info-box">
-      <input type="hidden" v-model="articleGNum" />
+      <input type="hidden" v-model="articleGnum" />
       <div>제목</div>
       <input type="text" v-model="articleTitle" />
       <div>만나장</div>

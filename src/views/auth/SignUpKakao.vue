@@ -8,48 +8,56 @@
 </template>
 
 <script>
-  export default {
-    name: 'SignUpKakao',
-    data() {
-      return {
-        id: "cheolsu-official@kakao.com",
-        name: "",
-        nickname: "철수철수"
-      }
+import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
+
+export default {
+  name: 'SignUpKakao',
+  data() {
+    return {
+      id: "cheolsu-official@kakao.com",
+      name: "",
+      nickname: "철수철수"
+    }
+  },
+  computed: {
+    ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+  },
+  methods: {
+    ...mapActions(["setVuexId"]), // Vuex-actions 활용
+    func() {
+      console.log("@@ func() 실행");
     },
-    methods: {
-      func() {
-        console.log("@@ func() 실행");
-      },
-      registerKakao() {
-        console.log("@@ registerKakao() 실행");
-        var serverIP = process.env.VUE_APP_SERVER_IP,
-          serverPort = process.env.VUE_APP_SERVER_PORT,
-          pageUrl = "mygym/user/registeruserkakao";
-        this.$axios({
-          url: `http://${serverIP}:${serverPort}/${pageUrl}`,
-          method: "POST",
-          params: {
-            userId: this.id,
-            userName: this.name,
-            userNickname: this.nickname,
-          },
-          responseType: "json",
+    registerKakao() {
+      console.log("@@ registerKakao() 실행");
+      var serverIP = process.env.VUE_APP_SERVER_IP,
+        serverPort = process.env.VUE_APP_SERVER_PORT,
+        pageUrl = "mygym/user/registeruserkakao";
+      this.$axios({
+        url: `http://${serverIP}:${serverPort}/${pageUrl}`,
+        method: "POST",
+        params: {
+          userId: this.id,
+          userName: this.name,
+          userNickname: this.nickname,
+        },
+        responseType: "json",
+      })
+        .then((result) => {
+          console.log("@@ 카카오 회원가입 성공");
+          console.log(result);
+          // if else 로 회원가입 성공, 실패 조건문 추가할 것
+          alert("회원가입되었습니다.\nid : " + this.userId);
+          this.setVuexId(this.userId);
+          this.$moveTo("/gathering");
         })
-          .then((result) => {
-            console.log("@@ 카카오 회원가입 성공");
-            console.log(result);
-            // if else 로 회원가입 성공, 실패 조건문 추가할 것
-            this.$moveTo("/gathering");
-          })
-          .catch((error) => {
-            console.log("@@ 카카오 회원가입 실패");
-            console.log(error);
-            alert("axios 오류");
-          });
-      }
+        .catch((error) => {
+          console.log("@@ 카카오 회원가입 실패");
+          console.log(error);
+          alert("axios 오류");
+        });
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -4,7 +4,7 @@
       <div>제목</div>
       <input type="text" v-model="articleTitle" />
       <div>만나장</div>
-      <input type="text" v-model="articleAuthor" />
+      <input type="text" v-model="articleAuthor" disabled />
       <div>카테고리</div>
       <input type="text" v-model="articleCategory" />
       <!-- <div>작성일</div>
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
+
 export default {
   name: "CreateArticleGatheringView",
   data() {
@@ -50,7 +52,15 @@ export default {
       articleContent: "",
     };
   },
+  computed: {
+    ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+  },
+  mounted() {
+    console.log("@ create-mounted() 실행");
+    this.articleAuthor = this.getVuexId;
+  },
   methods: {
+    ...mapActions(["setVuexId"]), // Vuex-actions 활용
     func() {
       console.log("@@ func() 실행");
     },

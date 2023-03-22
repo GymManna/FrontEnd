@@ -7,22 +7,22 @@
     <div class="info-box">
       <input type="hidden" v-model="articleGnum" />
       <div>제목</div>
-      <input type="text" v-model="articleTitle" />
+      <input type="text" v-model="articleTitle" readonly />
       <div>만나장</div>
-      <input type="text" v-model="articleAuthor" />
+      <input type="text" v-model="articleAuthor" readonly />
       <div>카테고리</div>
-      <input type="text" v-model="articleCategory" />
+      <input type="text" v-model="articleCategory" readonly />
       <div>작성일</div>
-      <input type="text" v-model="articleDate" />
+      <input type="text" v-model="articleDate" readonly />
       <div>참여자 수</div>
-      <input type="text" v-model="articleMemberNum" />
+      <input type="text" v-model="articleMemberNum" readonly />
     </div>
     <br><br><hr>
 
     <div class="map-box">
       <div class="map-box-search">
         <span>운동 센터</span>
-        <input type="text" v-model="centerName" />
+        <input type="text" v-model="centerName" readonly />
         <button @click="func()">검색</button>
       </div>
       <div>버터짐 강남점</div>
@@ -34,13 +34,13 @@
 
     <div class="content-box">
       <span>내용</span>
-      <textarea rows="10" cols="80" v-model="articleContent" />
+      <textarea rows="10" cols="80" v-model="articleContent" readonly />
     </div>
     <br><br>
 
     <div class="comment-box">
       <div class="comment-box-input">
-        <span>댓글</span>
+        <span>댓글 ' {{ getVuexId }} '</span>
         <input type="text" v-model="commentContent" />
         <button @click="createComment()">입력</button>
       </div>
@@ -92,6 +92,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
+
 export default {
   name: "DetailArticleGatheringView",
   data() {
@@ -111,7 +113,11 @@ export default {
       commentContent: "",
     };
   },
+  computed: {
+    ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+  },
   methods: {
+    ...mapActions(["setVuexId"]), // Vuex-actions 활용
     func() {
       console.log("@@ func() 실행");
     },
