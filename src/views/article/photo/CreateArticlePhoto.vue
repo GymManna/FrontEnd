@@ -12,24 +12,41 @@
 </template>
 
 <script>
+  import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
   const baseUrl = process.env.VUE_APP_API_URL;
 
   export default {
     name: 'CreateArticlePhoto',
+
     data(){
       return {
-        author: "admin",
+        author: "",
         title: this.title,
         content: this.content,
         image: null,
         imageUrl: null
       }
     },
+
+    mounted() {
+      this.author = this.getVuexId;
+    },
+
+    computed: {
+      ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+    },
+
     methods: {
+      // [Vuex-actions]
+      ...mapActions([
+        "setVuexId"
+      ]),
+
       // [사진 업로드]
       uploadImage(event) {
         this.image = event.target.files[0];
       },
+
       // [게시글 생성]
       createPost() {
         event.preventDefault();
@@ -47,7 +64,7 @@
           }
           // 성공 시
         }).then(() => {
-          alert('게시글 등록 완료');
+          alert('Create Successful');
           this.$router.push({
             path: '/photo'
           });
@@ -58,7 +75,7 @@
           if(err.code == 'ERR_BAD_REQUEST') alert('이미지를 첨부해 주세요.');
         })
       },
-    }
+    },
   }
 </script>
 

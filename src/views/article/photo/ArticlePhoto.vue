@@ -28,6 +28,9 @@
         curArticleNum: 0
       }
     },
+    mounted(){
+      this.getArticle()
+    },
     methods: {
       // [게시글 불러오기]
       getArticle(){
@@ -36,7 +39,7 @@
         ).then(res => {
           this.imageData = res.data;
         }).catch(err => {
-          console.log("[ArticlePhoto] ", err)
+          console.log("[ArticlePhoto GET ARTICLE] ", err)
         })
       },
       // [모달 열기(상세페이지 이동)]
@@ -52,9 +55,6 @@
       setErrorImage(event){
         event.target.src = this.errorImage;
       },
-    },
-    mounted(){
-      this.getArticle()
     }
   }
 </script>
