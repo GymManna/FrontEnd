@@ -17,6 +17,7 @@
       <div>
         <button @click="editGathering()">만나 수정하기(임시)</button>
       </div>
+
       <div class="map">
         <gathering-main-map />
       </div>
@@ -27,10 +28,16 @@
 <script>
 import GatheringMainMap from "@/components/gathering/GatheringMainMap.vue";
 
+import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
+
 export default {
   components: { GatheringMainMap },
   name: "ArticleGatheringView",
+  computed: {
+    ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+  },
   methods: {
+    ...mapActions(["setVuexId"]), // Vuex-actions 활용
     searchCenter() {
       console.log("@@ searchCenter() 실행");
     },
@@ -45,7 +52,7 @@ export default {
     editGathering() {
       console.log("@@ editGathering() 실행");
       this.$moveTo("/gathering/edit");
-    }
+    },
   }
 };
 </script>
