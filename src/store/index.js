@@ -3,20 +3,25 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     // 글로벌로 관리될 상태 값 
-    VuexId: ""
+    VuexId: "",
+    VuexNickname: ""
   },
   getters: {
     // 데이터에 변화를 줄 순 없다.
     getVuexId: (state) => {
-      // console.log("@@@ Vuex-getVuexId : " + state.VuexId);
       return state.VuexId;
+    },
+    getVuexNickname: (state) => {
+      return state.VuexNickname;
     }
   },
   mutations: {
     // 실제 데이터 변화가 일어나는 곳
     mutSetVuexId: (state, id) => {
-      // console.log("@@@ Vuex-mutSetVuexId : " + state.VuexId + "에서 " + id + "로 변경");
       state.VuexId = id;
+    },
+    mutSetVuexNickname: (state, nickname) => {
+      state.VuexNickname = nickname;
     }
   },
   actions: {
@@ -24,6 +29,10 @@ export default createStore({
     setVuexId: (context, id) => {
       console.log("@@@ Vuex-setVuexId : " + id);
       context.commit("mutSetVuexId", id);
+    },
+    setVuexNickname: (context, nickname) => {
+      console.log("@@@ Vuex-setVuexNickname : " + nickname);
+      context.commit("mutSetVuexNickname", nickname);
     }
   },
   modules: {

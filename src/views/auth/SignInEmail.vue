@@ -18,10 +18,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+    ...mapGetters(["getVuexId", "getVuexNickname"]), // Vuex-getters 활용
   },
   methods: {
-    ...mapActions(["setVuexId"]), // Vuex-actions 활용
+    ...mapActions(["setVuexId", "setVuexNickname"]), // Vuex-actions 활용
     userLogin() {
       console.log("@@ userLogin() 실행");
       var serverIP = process.env.VUE_APP_SERVER_IP,
@@ -39,14 +39,15 @@ export default {
         .then((result) => {
           console.log("axios 성공");
           console.log(result);
-          if (result.data == "user/loginSuccess") {
-            console.log("@@ 로그인 성공");
-            alert("로그인 성공!")
-            this.setVuexId(this.userId);
-            this.$moveTo("/gathering");
-          } else {
+          if (result.data == "") {
             console.log("@@ 로그인 실패");
             alert("로그인 실패");
+          } else {
+            console.log("@@ 로그인 성공");
+            alert("로그인 성공!")
+            this.setVuexId(result.data.userId);
+            this.setVuexNickname(result.data.userNickname);
+            this.$moveTo("/gathering");
           }
         })
         .catch((error) => {
