@@ -75,13 +75,25 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
         commentAuthor: ""
       }
     },
+    mounted(){
+      this.getArticle(); // [GET] 게시글 
+      this.getComment(); // [GET] 댓글
+      this.commentAuthor = this.getVuexId;
+    },
+    computed: {
+      ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+    },
     methods: {
       // [Vuex-actions]
-      ...mapActions(["setVuexId"]),
+      ...mapActions([
+        "setVuexId"
+      ]),
+
       // [디폴트 이미지]
       setErrorImage(event){
         event.target.src = this.errorImage;
       },
+
       // [게시글 불러오기]
       getArticle(){
         this.$axios.get(
@@ -93,6 +105,7 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
           console.log("[ArticlePhoto GET ARTICLE] ", err)
         })
       },
+
       // [게시글 삭제]
       deleteArticle(){
         this.$axios.delete(`${baseUrl}/article/photo/${this.articlePnum}/`, {
@@ -106,6 +119,7 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
           console.log("[DetailPhoto DELETE ARTICLE] ", err);
         })
       },
+
       // [댓글 불러오기]
       getComment(){
         this.$axios.get(
@@ -115,13 +129,12 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
             ...comment,
             isEditMode: false
           }))
-
           this.commentLen = this.commentData.length;
-
         }).catch(err => {
           console.log("[DetailPhoto GET COMMENT] ", err);
         })
       },
+
       // [댓글 작성]
       createComment(){
         event.preventDefault();
@@ -134,32 +147,29 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
         // [POST]
         this.$axios.post(
           `${baseUrl}/article/photo/${this.articlePnum}/comment/`, formData
-
           // 성공 시
         ).then(() => {
           this.getComment(); // [GET] 함수 실행
           this.comment = ''; // 입력창 초기화
-
           // 실패 시
         }).catch(err => {
           console.log("[DetailPhoto CREATE COMMENT] ", err);
         })
       },
+
       // [댓글 삭제]
       deleteComment(commentPnum){
         this.$axios.delete(`${baseUrl}/article/photo/${this.articlePnum}/comment/${commentPnum}/`, {
         }).then(() => {
           this.getComment(); // [GET] 함수 실행
-
         }).catch(err => {
           console.log("[DetailPhoto DELETE COMMENT] ", err);
         })
       },
+
       // [댓글 수정]
       updateComment(commentPnum){
         event.preventDefault();
-        console.log(this.editedComment);
-
         this.$axios.put(`${baseUrl}/article/photo/${this.articlePnum}/comment/${commentPnum}/`, {
           commentPcontent: this.editedComment
         }).then(() => {
@@ -168,20 +178,12 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
           console.log("[DetailPhoto PUT COMMENT] ", err);
         })
       },
+
       // [댓글 수정 모드]
       toggleEditMode(i){
         this.commentData[i].isEditMode = !this.commentData[i].isEditMode;
       }
     },
-    mounted(){
-      this.getArticle(); // [GET] 게시글 
-      this.getComment(); // [GET] 댓글
-      this.commentAuthor = this.getVuexId;
-    },
-    computed: {
-      ...mapGetters(["getVuexId"]), // Vuex-getters 활용
-    },
-
   }
 </script>
 

@@ -28,6 +28,9 @@
         curArticleNum: 0
       }
     },
+    mounted(){
+      this.getArticle()
+    },
     methods: {
       // [게시글 불러오기]
       getArticle(){
@@ -52,9 +55,6 @@
       setErrorImage(event){
         event.target.src = this.errorImage;
       },
-    },
-    mounted(){
-      this.getArticle()
     }
   }
 </script>
