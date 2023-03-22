@@ -20,7 +20,7 @@ import store from './store'
 import Vuex from 'vuex';
 app.use(store);
 app.use(Vuex);
-app.config.productionTip = false;
+// app.config.productionTip = false;
 
 app.use(router); // vue-router
 app.use(globalmethod); // 전역 메소드 적용
