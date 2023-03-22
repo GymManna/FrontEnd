@@ -24,10 +24,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+    ...mapGetters(["getVuexId", "getVuexNickname"]), // Vuex-getters 활용
   },
   methods: {
-    ...mapActions(["setVuexId"]), // Vuex-actions 활용
+    ...mapActions(["setVuexId", "setVuexNickname"]), // Vuex-actions 활용
     register() {
       console.log("@@ register() 실행");
       var serverIP = process.env.VUE_APP_SERVER_IP,
@@ -50,7 +50,8 @@ export default {
           console.log(result);
           // if else 로 회원가입 성공, 실패 조건문 추가할 것
           alert("회원가입되었습니다.\nid : " + this.userId);
-          this.setVuexId(this.userId);
+          this.setVuexId(result.data.userId);
+          this.setVuexNickname(result.data.userNickname);
           this.$moveTo("/gathering");
         })
         .catch((error) => {

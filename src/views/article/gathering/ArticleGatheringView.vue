@@ -21,6 +21,7 @@
         <input type="text" />
         <button @click="searchCenter()">검색</button>
         <br>
+        <button @click="getGatheringList()">게시글 리스트 가져오기(임시)</button>
         <button @click="showDetailGathering()">만나 상세보기(임시)</button>
         <button @click="editGathering()">만나 수정하기(임시)</button>
         <hr>
@@ -44,6 +45,29 @@ export default {
     ...mapActions(["setVuexId"]), // Vuex-actions 활용
     searchCenter() {
       console.log("@@ searchCenter() 실행");
+    },
+    getGatheringList() {
+      console.log("@@ getGatheringList() 실행");
+      var serverIP = process.env.VUE_APP_SERVER_IP,
+        serverPort = process.env.VUE_APP_SERVER_PORT,
+        pageUrl = "mygym/article/searchlist";
+      this.$axios({
+        url: `http://${serverIP}:${serverPort}/${pageUrl}`,
+        method: "GET",
+        params: {
+          centerName: "혜화 헬스장",
+          // articleGnum: "1"
+        },
+        responseType: "json",
+      })
+        .then((result) => {
+          console.log("axios 성공");
+          console.log(result);
+        })
+        .catch((error) => {
+          console.log("axios 실패");
+          console.log(error);
+        })
     },
     createGathering() {
       console.log("@@ createGathering() 실행");

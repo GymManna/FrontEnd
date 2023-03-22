@@ -8,7 +8,7 @@
       <router-link to="/photo"> <button>운동 인증해요</button> </router-link>
     </nav>
     <div class="user-page">
-      <div>{{ getVuexId }}님</div>
+      <div>{{ getVuexNickname }}님</div>
       <router-link to="/mypage">마이페이지</router-link>
       <!-- <router-link to="/">로그아웃</router-link> -->
       <button @click="signOut()">로그아웃</button>
@@ -22,14 +22,15 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
   export default {
     name: 'VHeader',
     computed: {
-      ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+      ...mapGetters(["getVuexId", "getVuexNickname"]), // Vuex-getters 활용
     },
     methods: {
-      ...mapActions(["setVuexId"]), // Vuex-actions 활용
+      ...mapActions(["setVuexId", "setVuexNickname"]), // Vuex-actions 활용
       signOut() {
         console.log("@@ signOut() 실행");
         alert("로그아웃되었습니다.\nid : " + this.getVuexId);
         this.setVuexId(null);
+        this.setVuexNickname(null);
         this.$moveTo("/");
       }
     }
