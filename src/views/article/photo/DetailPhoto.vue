@@ -20,14 +20,21 @@
 
             <div class="modal-board-comment">
               <div  class="modal-board-comment-inner">
-                <div v-for="comment in commentData" :key="comment.commentPnum" class="comment">
-                  <div class="comment-text">
+                <div v-for="(comment, i) in commentData" :key="comment.commentPnum" class="comment">
+                  <div v-if="!comment.isEditMode" class="comment-text">
                     <p>{{ comment.userNickname }}</p>
                     <p>{{ comment.commentPcontent }}</p>
                   </div>
+                  <div v-else class="comment-edit">
+                    <p>{{ comment.userNickname }}</p>
+                    <form @submit="updateComment(comment.commentPnum)">
+                      <input type="text" v-model="editedComment" placeholder="수정할 텍스트 입력..">
+                      <button type="submit" style="display:none"></button>
+                    </form>
+                  </div>
                   <div class="comment-icons">
                     <font-awesome-icon @click="deleteComment(comment.commentPnum)" class="fa-x" icon="fa-solid fa-xmark" />
-                    <font-awesome-icon class="fa-x" icon="fa-solid fa-pen" />
+                    <font-awesome-icon @click="toggleEditMode(i)" class="fa-x" icon="fa-solid fa-pen" />
                   </div>
                 </div>
               </div>
@@ -54,7 +61,9 @@
         articlePnum: this.$route.params.articlePnum,
         articleData: [],
         commentData: [],
-        comment: ''
+        comment: '',
+        isEditMode: false,
+        editedComment: ''
       }
     },
     methods: {
@@ -78,7 +87,10 @@
         this.$axios.get(
           `${baseUrl}/article/photo/${this.articlePnum}/comment/`
         ).then(res => {
-          this.commentData = res.data;
+          this.commentData = res.data.map(comment => ({
+            ...comment,
+            isEditMode: false
+          }))
         }).catch(err => {
           console.log("[DetailPhoto GET] ", err);
         })
@@ -109,19 +121,36 @@
       // [댓글 삭제]
       deleteComment(commentPnum){
         this.$axios.delete(`${baseUrl}/article/photo/${this.articlePnum}/comment/${commentPnum}/`, {
-
         }).then(() => {
           this.getComment(); // [GET] 함수 실행
 
         }).catch(err => {
           console.log("[DetailPhoto DELETE] ", err);
         })
+      },
+      // [댓글 수정]
+      updateComment(commentPnum){
+        event.preventDefault();
+        console.log(this.editedComment);
+
+        this.$axios.put(`${baseUrl}/article/photo/${this.articlePnum}/comment/${commentPnum}/`, {
+          commentPcontent: this.editedComment
+        }).then(() => {
+          this.getComment(); // [GET] 함수 실행
+        }).catch(err => {
+          console.log("[DetailPhoto PUT] ", err);
+        })
+      },
+      // [댓글 수정 모드]
+      toggleEditMode(i){
+        this.commentData[i].isEditMode = !this.commentData[i].isEditMode;
       }
     },
     mounted(){
-      this.getArticle();
-      this.getComment();
-    }
+      this.getArticle(); // [GET] 게시글 
+      this.getComment(); // [GET] 댓글
+    },
+
   }
 </script>
 
@@ -232,6 +261,17 @@
 
                 p:nth-of-type(1){
                   font-weight: 700;
+                }
+
+                .comment-edit {
+                  width: 80%;
+
+                  input {
+                    width: 100%;
+                    height: 25px;
+                    border: none;
+                    padding-left: 10px;
+                  }
                 }
               }
             }
