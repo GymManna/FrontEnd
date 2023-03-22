@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
   const baseUrl = process.env.VUE_APP_API_URL;
 
   export default {
@@ -70,10 +71,13 @@
         comment: '',
         commentLen: 0,
         isEditMode: false,
-        editedComment: ''
+        editedComment: '',
+        commentAuthor: ""
       }
     },
     methods: {
+      // [Vuex-actions]
+      ...mapActions(["setVuexId"]),
       // [디폴트 이미지]
       setErrorImage(event){
         event.target.src = this.errorImage;
@@ -124,7 +128,7 @@
         
         const formData = new FormData();
         formData.append("articlePnum", this.articlePnum);
-        formData.append("userNickname", '관리자');
+        formData.append("userNickname", this.commentAuthor);
         formData.append("commentPcontent", this.comment);
 
         // [POST]
@@ -172,6 +176,10 @@
     mounted(){
       this.getArticle(); // [GET] 게시글 
       this.getComment(); // [GET] 댓글
+      this.commentAuthor = this.getVuexId;
+    },
+    computed: {
+      ...mapGetters(["getVuexId"]), // Vuex-getters 활용
     },
 
   }
