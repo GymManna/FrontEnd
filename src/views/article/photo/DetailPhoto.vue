@@ -14,11 +14,17 @@
 
           <div class="modal-board">
             <div v-if="this.articleData[0]" class="modal-board-contents">
-              <p class="modal-board-contents-title"> {{ this.articleData[0].articlePtitle }} </p>
-              <p class="modal-board-contents-content"> {{ this.articleData[0].articlePcontent }} </p>
+              <div class="contents-top">
+                <p class="modal-board-contents-title"> {{ this.articleData[0].articlePtitle }} </p>
+                <p @click="deleteArticle">삭제</p>
+              </div>
+              <div class="contents-btm">
+                <p class="modal-board-contents-content"> {{ this.articleData[0].articlePcontent }} </p>
+              </div>
             </div>
 
             <div class="modal-board-comment">
+              <h3>댓글 수 ({{ this.commentLen }})</h3>
               <div  class="modal-board-comment-inner">
                 <div v-for="(comment, i) in commentData" :key="comment.commentPnum" class="comment">
                   <div v-if="!comment.isEditMode" class="comment-text">
@@ -62,6 +68,7 @@
         articleData: [],
         commentData: [],
         comment: '',
+        commentLen: 0,
         isEditMode: false,
         editedComment: ''
       }
@@ -79,7 +86,20 @@
           this.articleData = res.data;
           console.log(this.articleData[0].articleImgurl);
         }).catch(err => {
-          console.log("[ArticlePhoto] ", err)
+          console.log("[ArticlePhoto GET ARTICLE] ", err)
+        })
+      },
+      // [게시글 삭제]
+      deleteArticle(){
+        this.$axios.delete(`${baseUrl}/article/photo/${this.articlePnum}/`, {
+        }).then(() => {
+          alert("[Delete Successful]");
+
+          this.$router.push({
+            name: 'ArticlePhoto'
+          });
+        }).catch(err => {
+          console.log("[DetailPhoto DELETE ARTICLE] ", err);
         })
       },
       // [댓글 불러오기]
@@ -91,8 +111,11 @@
             ...comment,
             isEditMode: false
           }))
+
+          this.commentLen = this.commentData.length;
+
         }).catch(err => {
-          console.log("[DetailPhoto GET] ", err);
+          console.log("[DetailPhoto GET COMMENT] ", err);
         })
       },
       // [댓글 작성]
@@ -115,7 +138,7 @@
 
           // 실패 시
         }).catch(err => {
-          console.log("[DetailPhoto CREATE] ", err);
+          console.log("[DetailPhoto CREATE COMMENT] ", err);
         })
       },
       // [댓글 삭제]
@@ -125,7 +148,7 @@
           this.getComment(); // [GET] 함수 실행
 
         }).catch(err => {
-          console.log("[DetailPhoto DELETE] ", err);
+          console.log("[DetailPhoto DELETE COMMENT] ", err);
         })
       },
       // [댓글 수정]
@@ -138,7 +161,7 @@
         }).then(() => {
           this.getComment(); // [GET] 함수 실행
         }).catch(err => {
-          console.log("[DetailPhoto PUT] ", err);
+          console.log("[DetailPhoto PUT COMMENT] ", err);
         })
       },
       // [댓글 수정 모드]
@@ -167,9 +190,13 @@
 
     .close-btn {
       position: absolute;
-      top: 25px;
-      right: 25px;
+      top: 30px;
+      right: 40px;
       cursor: pointer;
+
+      a {
+        color: #000;
+      }
     }
 
     .modal {
@@ -186,6 +213,8 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
+        
+        overflow: hidden;
 
         .modal-img {
           width: 50%;
@@ -211,19 +240,36 @@
             background-color: #ffffff;
             z-index: 999;
 
-            .modal-board-contents-title {
-              font-size: 18px;
-              font-weight: 700;
-              margin: 20px 0 5px;
-              padding-left: 20px;
+            .contents-top{
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
               border-bottom: 1px solid #dddddd;
+
+              p {
+                margin: 10px 0;
+                padding: 0;
+                font-size: 18px;
+              }
+
+              p:nth-of-type(2) {
+                cursor: pointer;
+              }
+
+              .modal-board-contents-title {
+                width: 80%;
+                font-size: 24px;
+                font-weight: 700;
+              }
             }
 
-            .modal-board-contents-content {
-              height: 100%;
-              overflow: auto;
-              padding: 0 20px;
-              font-size: 18px;
+            .contents-btm {
+              .modal-board-contents-content {
+                height: 100%;
+                overflow: auto;
+                padding: 0 20px;
+                font-size: 18px;
+              }
             }
           }
 
@@ -231,18 +277,17 @@
             position: relative;
             height: 60%;
             text-align: left;
-            padding-left: 20px;
+            padding: 0 20px;
             font-size: 18px;
 
             .modal-board-comment-inner {
-              height: 90%;
+              height: calc(100% - 120px);
               overflow: auto;
 
               // 댓글 한 줄 한 줄
               .comment { 
-                margin-bottom: 10px;
                 padding-right: 20px;
-                border-bottom: 1px solid #ddd;
+                border-bottom: 1px solid #aaa;
 
                 display: flex;
                 flex-direction: row;

@@ -47,7 +47,7 @@
           }
           // 성공 시
         }).then(() => {
-          alert('게시글 등록 완료');
+          alert('Create Successful');
           this.$router.push({
             path: '/photo'
           });

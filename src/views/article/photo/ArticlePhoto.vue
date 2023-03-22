@@ -36,7 +36,7 @@
         ).then(res => {
           this.imageData = res.data;
         }).catch(err => {
-          console.log("[ArticlePhoto] ", err)
+          console.log("[ArticlePhoto GET ARTICLE] ", err)
         })
       },
       // [모달 열기(상세페이지 이동)]
