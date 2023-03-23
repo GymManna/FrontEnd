@@ -44,11 +44,9 @@ export default {
           console.log("axios 성공");
           console.log(result);
           if (result.data == "") {
-            console.log("@@ 로그인 실패");
             alert("로그인 실패");
           } else {
-            console.log("@@ 로그인 성공");
-            alert("로그인 성공!")
+            alert("로그인 성공")
             this.setVuexId(result.data.userId);
             this.setVuexNickname(result.data.userNickname);
             this.$moveTo("/gathering");

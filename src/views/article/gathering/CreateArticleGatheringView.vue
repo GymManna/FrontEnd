@@ -99,7 +99,8 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  width: 700px;
+  width: 90%;
+  margin: 0 auto;
 
   .info-box {
     display: grid;
