@@ -3,7 +3,6 @@
     <div class="menu">
       <my-page-menu />
     </div>
-
     <div class="contents">
       <router-view />
     </div>
@@ -26,21 +25,17 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  display: grid;
-  width: flex;
-  grid-template-columns: 200px auto;
-  // grid-template-rows: repeat(5, 1fr);
+  display: flex;
+  flex-direction: row;
 
-  background-color: lightyellow;
   gap: 10px;
 
-  .contents {
-    display: flex;
-    flex-direction: column;
+  .menu {
+    width: 20%;
+  }
 
-    justify-content: center;
-    align-items: center;
-    background-color: lightgrey;
+  .contents {
+    width: 100%;
 
     li {
       background-color: lightcyan;

@@ -13,8 +13,7 @@
     <div class="user-page">
       <div>{{ getVuexNickname }}님</div>
       <router-link to="/mypage">마이페이지</router-link>
-      <!-- <router-link to="/">로그아웃</router-link> -->
-      <button @click="signOut()">로그아웃</button>
+      <p @click="signOut()">로그아웃</p>
     </div>
   </div>
 </template>
@@ -31,7 +30,7 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
       ...mapActions(["setVuexId", "setVuexNickname"]), // Vuex-actions 활용
       signOut() {
         console.log("@@ signOut() 실행");
-        alert("로그아웃되었습니다.\nid : " + this.getVuexId);
+        alert("[로그아웃] \nID : " + this.getVuexId);
         this.setVuexId(null);
         this.setVuexNickname(null);
         this.$moveTo("/");
@@ -86,10 +85,26 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
       flex-direction: row;
       gap: 20px;
 
+      div {
+        font-weight: 800;
+        font-size: 20px;
+      }
+      
       a {
         color: #2c3e50;
         text-decoration: none;
         font-size: 18px;
+      }
+
+      p {
+        margin: 0;
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      p:hover {
+        color: blue;
+        text-decoration: underline;
       }
     }
   }

@@ -5,7 +5,7 @@
         <input type="text" name="title" v-model="title" class="form-input-title" placeholder="제목을 입력하세요">
         <input type="file" ref="fileInput" name="photoImage" class="form-input-photo" @change="uploadImage">
       </div>
-      <textarea name="content" v-model="content" id="content" maxlength="500"></textarea>
+      <textarea name="content" v-model="content" id="content" maxlength="500" row="10" cols="80"></textarea>
       <button type="submit" class="button"> 업로드하기 </button>
     </form>
   </div>

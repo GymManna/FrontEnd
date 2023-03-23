@@ -46,7 +46,6 @@ export default {
   display: grid;
   width: flex;
   grid-template-columns: 200px auto;
-  // grid-template-rows: repeat(5, 1fr);
 
   background-color: lightyellow;
   gap: 10px;

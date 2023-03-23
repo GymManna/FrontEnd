@@ -19,25 +19,23 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  margin-bottom: 20px;
-  padding: 20px 0;
-
-  background-color: #ffffff;
-
   .box {
     display: flex;
     flex-direction: column;
     align-items: center;
-
     gap: 20px;
 
     button {
       width: 200px;
       height: 60px;
       border: none;
-      background-color: #e9e9e9;
+      background-color: #FFDC5D;
       cursor: pointer;
       font-size: 18px;
+    }
+
+    button:hover {
+      background-color: #ffce1d;
     }
   }
 }
