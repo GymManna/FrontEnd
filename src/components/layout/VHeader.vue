@@ -31,9 +31,31 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
       signOut() {
         console.log("@@ signOut() 실행");
         alert("[로그아웃] \nID : " + this.getVuexId);
+        if (window.Kakao) {
+          this.kakaoLogout();
+        }
         this.setVuexId(null);
         this.setVuexNickname(null);
         this.$moveTo("/");
+      },
+      kakaoLogout() {
+        console.log("@@ kakaoLogout() 실행");
+        if (window.Kakao.isInitialized() == true) {
+          if (window.Kakao.Auth.getAccessToken()) {
+            window.Kakao.API.request({
+              url: '/v1/user/unlink',
+              success: function (response) {
+                console.log(response); // logout되는 id
+              },
+              fail: function (error) {
+                console.log(error);
+              },
+            })
+            window.Kakao.Auth.setAccessToken(undefined)
+          } else {
+            console.log("@@ access token 없음");
+          }
+        }
       }
     }
   }

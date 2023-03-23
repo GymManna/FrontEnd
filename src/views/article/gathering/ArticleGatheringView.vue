@@ -12,10 +12,45 @@
 
       <div>
         <div>게시글 리스트 출력</div>
+        <div class="table-responsive">
+          <table class="gathering-table">
+            <thead>
+              <tr>
+                <th scope="col" width="80px">글번호</th>
+                <th scope="col" width="400px">제목</th>
+                <th scope="col" width="300px">장소</th>
+                <th scope="col" width="80px">현재인원</th>
+                <th scope="col" width="80px">최대인원</th>
+                <th scope="col" width="100px">삭제</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in GatheringList" :key="index">
+                <td style="text-align: center">{{ item.articleGnum }}</td>
+                <td style="text-align: left" text-align="left">
+                  <a href="#" v-on:click="showDetailGathering()">
+                    {{ item.articleGtitle }}
+                  </a>
+                </td>
+                <td style="text-align: center">{{ item.centerName }}</td>
+                <td style="text-align: center">{{ item.countPuser }}</td>
+                <td style="text-align: center">4</td>
+                <td style="text-align: center">
+                  <button
+                    v-on:click="delBtnClicked(index, $event)"
+                    v-bind:id="'delBtn' + (index + 1)"
+                  >
+                    삭제
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div>
-        <hr>
+        <hr><hr>
         <div>임시 테스트용</div>
         <select class="selectbox">
           <option value="health">헬스</option>
@@ -41,6 +76,14 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
 export default {
   components: { GatheringMainMap },
   name: "ArticleGatheringView",
+  data() {
+    return {
+      GatheringList: []
+    }
+  },
+  mounted() {
+    // this.GatheringList = 
+  },
   computed: {
     ...mapGetters(["getVuexId"]), // Vuex-getters 활용
   },
@@ -66,6 +109,7 @@ export default {
         .then((result) => {
           console.log("axios 성공");
           console.log(result);
+          this.GatheringList = result.data.GList;
         })
         .catch((error) => {
           console.log("axios 실패");

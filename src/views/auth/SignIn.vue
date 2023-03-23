@@ -56,20 +56,8 @@
               url: '/v2/user/me',
               success: (response) => {
                 console.log(response); // kakao 계정 정보
-                // console.log(response.kakao_account.email);
-                // console.log(response.kakao_account.profile.nickname);
-
                 // DB에 이미 있는 이메일이면 로그인, 없는 계정이면 회원가입
                 this.userLogin(response.kakao_account);
-                // if (response.kakao_account.email) {
-                //   alert("카카오 로그인 성공!")
-                //   this.setVuexId(result.data.userId);
-                //   this.setVuexNickname(result.data.userNickname);
-                //   this.$moveTo("/gathering");
-                //   this.moveTo('signup-kakao');
-                // } else {
-                //   this.moveTo('signup-kakao');
-                // }
               },
               fail: (error) => {
                 console.log(error);

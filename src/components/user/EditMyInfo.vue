@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
+
 export default {
   name: "EditMyInfo",
   data() {
@@ -29,7 +31,47 @@ export default {
       phone: "010-1234-4321",
     }
   },
+  computed: {
+    ...mapGetters(["getVuexId", "getVuexNickname"]), // Vuex-getters 활용
+  },
+  mounted() {
+    this.getUserInfo();
+  },
   methods: {
+    ...mapActions(["setVuexId", "setVuexNickname"]), // Vuex-actions 활용
+    getUserInfo() {
+      console.log("@@ editUserInfo() 실행");
+      var serverIP = process.env.VUE_APP_SERVER_IP,
+        serverPort = process.env.VUE_APP_SERVER_PORT,
+        pageUrl = "mygym/user/loginkakao";
+      this.$axios({
+        url: `http://${serverIP}:${serverPort}/${pageUrl}`,
+        method: "GET",
+        params: {
+          userId: this.getVuexId
+        },
+        responseType: "json",
+      })
+        .then((result) => {
+          console.log("axios 성공");
+          console.log(result);
+          if (result.data == "") {
+            console.log("@@ 카카오 계정 회원가입");
+            alert("카카오 계정 회원가입");
+            this.$moveTo("signupkakao")
+          } else {
+            console.log("@@ 로그인 성공");
+            alert("로그인 성공!")
+            this.setVuexId(result.data.userId);
+            this.setVuexNickname(result.data.userNickname);
+            this.$moveTo("/gathering");
+          }
+        })
+        .catch((error) => {
+          console.log("axios 실패");
+          console.log(error);
+        })
+    },
     editUserInfo() {
       console.log("@@ editUserInfo() 실행");
       if (this.password == this.passwordch) {
