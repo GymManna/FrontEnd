@@ -53,14 +53,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+    ...mapGetters(["getVuexId", "getVuexNickname"]), // Vuex-getters 활용
   },
   mounted() {
     console.log("@ create-mounted() 실행");
-    this.articleAuthor = this.getVuexId;
+    this.articleAuthor = this.getVuexNickname;
   },
   methods: {
-    ...mapActions(["setVuexId"]), // Vuex-actions 활용
+    ...mapActions(["setVuexId", "setVuexNickname"]), // Vuex-actions 활용
     func() {
       console.log("@@ func() 실행");
     },
