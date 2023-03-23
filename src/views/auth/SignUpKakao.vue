@@ -24,13 +24,17 @@ export default {
   name: 'SignUpKakao',
   data() {
     return {
-      id: "cheolsu-official@kakao.com",
+      id: "",
       name: "",
-      nickname: "철수철수"
+      nickname: ""
     }
   },
   computed: {
     ...mapGetters(["getVuexId", "getVuexNickname"]), // Vuex-getters 활용
+  },
+  mounted() {
+    this.id = this.getVuexId;
+    this.nickname = this.getVuexNickname;
   },
   methods: {
     ...mapActions(["setVuexId", "setVuexNickname"]), // Vuex-actions 활용
@@ -56,7 +60,7 @@ export default {
           console.log("@@ 카카오 회원가입 성공");
           console.log(result);
           // if else 로 회원가입 성공, 실패 조건문 추가할 것
-          alert("회원가입되었습니다.\nid : " + this.userId);
+          alert("회원가입되었습니다.\nid : " + result.data.userId);
           this.setVuexId(result.data.userId);
           this.setVuexNickname(result.data.userNickname);
           this.$moveTo("/gathering");
