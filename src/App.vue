@@ -1,8 +1,8 @@
 <template>
   <div>
-    <VHeader v-if="this.$route.name !== 'SignIn'" />
+    <VHeader v-if="!IsSignIn && !IsSignUp && !IsSignUpKakao && !IsSignInEmail" />
     <router-view />
-    <VFooter v-if="this.$route.name !== 'SignIn'" />
+    <VFooter v-if="!IsSignIn && !IsSignUp && !IsSignUpKakao && !IsSignInEmail" />
   </div>
 </template>
 
@@ -15,6 +15,20 @@ export default {
   components: {
     VHeader,
     VFooter
+  },
+  computed: {
+    IsSignIn(){
+      return this.$route.name == "SignIn"
+    },
+    IsSignInEmail(){
+      return this.$route.name == "SignInEmail"
+    },
+    IsSignUp(){
+      return this.$route.name == "SignUp"
+    },
+    IsSignUpKakao(){
+      return this.$route.name == "SignUpKakao"
+    }
   }
 }
 </script>

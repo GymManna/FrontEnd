@@ -28,11 +28,11 @@
               <div  class="modal-board-comment-inner">
                 <div v-for="(comment, i) in commentData" :key="comment.commentPnum" class="comment">
                   <div v-if="!comment.isEditMode" class="comment-text">
-                    <p>{{ comment.userNickname }}</p>
+                    <p>{{ comment.userNickname }} 님</p>
                     <p>{{ comment.commentPcontent }}</p>
                   </div>
                   <div v-else class="comment-edit">
-                    <p>{{ comment.userNickname }}</p>
+                    <p>{{ comment.userNickname }} 님</p>
                     <form @submit="updateComment(comment.commentPnum)">
                       <input type="text" v-model="editedComment" placeholder="수정할 텍스트 입력..">
                       <button type="submit" style="display:none"></button>
@@ -78,15 +78,19 @@ import { mapGetters, mapActions } from "vuex"; // Vuex-map helper 사용
     mounted(){
       this.getArticle(); // [GET] 게시글 
       this.getComment(); // [GET] 댓글
-      this.commentAuthor = this.getVuexId;
+      this.commentAuthor = this.getVuexNickname;
     },
     computed: {
-      ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+      ...mapGetters([
+        "getVuexId",
+        "getVuexNickname"
+      ]), // Vuex-getters 활용
     },
     methods: {
       // [Vuex-actions]
       ...mapActions([
-        "setVuexId"
+        "setVuexId",
+        "setVuexNickname"
       ]),
 
       // [디폴트 이미지]

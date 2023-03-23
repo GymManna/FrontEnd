@@ -1,9 +1,13 @@
 <template>
   <div class="container">
-    <span> E-mail </span> <input type="text" placeholder="E-mail 입력" v-model="userId">
-    <span> Password </span> <input type="password" placeholder="Password 입력" v-model="userPw">
-  </div>
+    <div class="inner">
+      <span> E-mail </span> <input type="text" placeholder="E-mail 입력" v-model="userId">
+    </div>
+    <div class="inner">
+      <span> Password </span> <input type="password" placeholder="Password 입력" v-model="userPw">
+    </div>
     <button @click="userLogin()"> 로그인 </button>
+  </div>
 </template>
 
 <script>
@@ -63,24 +67,57 @@ export default {
 <style lang="scss" scoped>
 
   .container {
-    display: grid;
-    width: 700px;
-    height: 120px;
-    grid-template-columns: 2fr 5fr;
-    grid-template-rows: repeat(2, 1fr);
-
-    column-gap: 10px;
-    row-gap: 10px;
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    
+    width: 80%;
+    margin: 0 auto;
     padding: 20px 0;
     
-    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-    span {
-        text-align: right;
+    .inner {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+
+      margin-bottom: 20px;
+
+      span {
+        width: 200px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
         background-color: #FFDC5D;
         font-size: 18px;
-        
+      }
+
+      input {
+        width: 500px;
+        height: 40px;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #999;
+      }
+    }
+
+    button {
+      width: 200px;
+      height: 50px;
+      margin: 20px auto 0;
+      border: none;
+      background-color: #FFDC5D;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    
+    button:hover {
+      background-color: #ffce1d;
     }
 
   }

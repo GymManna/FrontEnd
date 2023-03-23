@@ -1,12 +1,24 @@
 <template>
   <div class="container">
-    <span> E-mail </span> <input type="text" placeholder="E-mail 입력" v-model="userId">
-    <span> 이름 </span> <input type="text" placeholder="이름 입력" v-model="userName">
-    <span> 닉네임 </span> <input type="text" placeholder="닉네임 입력" v-model="userNickname">
-    <span> Password </span> <input type="password" placeholder="Password 입력" v-model="userPassword">
-    <span> 전화번호 </span> <input type="text" placeholder="전화번호 입력" v-model="userPhone">
-  </div>
+    <div class="inner">
+      <span> E-mail </span> <input type="text" placeholder="E-mail 입력" v-model="userId">
+    </div>
+    <div class="inner">
+      <span> 이름 </span> <input type="text" placeholder="이름 입력" v-model="userName">
+    </div>
+    <div class="inner">
+      <span> 닉네임 </span> <input type="text" placeholder="닉네임 입력" v-model="userNickname">
+    </div>
+    <div class="inner">
+      <span> Password </span> <input type="password" placeholder="Password 입력" v-model="userPassword">
+    </div>
+    <div class="inner">
+      <span> 전화번호 </span> <input type="text" placeholder="전화번호 입력" v-model="userPhone">
+    </div>
+    
     <button @click="register()"> 회원가입 </button>
+  </div>
+    
 </template>
 
 <script>
@@ -67,24 +79,57 @@ export default {
 <style lang="scss" scoped>
 
   .container {
-    display: grid;
-    width: 700px;
-    height: 300px;
-    grid-template-columns: 2fr 5fr;
-    grid-template-rows: repeat(5, 1fr);
-
-    column-gap: 10px;
-    row-gap: 10px;
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    
+    width: 80%;
+    margin: 0 auto;
     padding: 20px 0;
     
-    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-    span {
-        text-align: right;
+    .inner {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+
+      margin-bottom: 20px;
+
+      span {
+        width: 200px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
         background-color: #FFDC5D;
         font-size: 18px;
-        
+      }
+
+      input {
+        width: 500px;
+        height: 40px;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #999;
+      }
+    }
+
+    button {
+      width: 200px;
+      height: 50px;
+      margin: 20px auto 0;
+      border: none;
+      background-color: #FFDC5D;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    
+    button:hover {
+      background-color: #ffce1d;
     }
 
   }
