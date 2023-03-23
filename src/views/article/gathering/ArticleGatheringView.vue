@@ -1,8 +1,11 @@
 <template>
   <div class="container">
     <div class="mapbox">
+      <div class="button-container">
+        <button class="yellow-botton" @click="createGathering()">새 만나 작성</button>
+      </div>
+      
 
-      <button class="yellow-botton" @click="createGathering()">새 만나 작성</button>
       <div class="map">
         <gathering-main-map />
       </div>
@@ -86,12 +89,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.yellow-botton {
-  width: 100px;
-  height: 30px;
-  border: none;
-  background-color: #FFDC5D;
-  cursor: pointer;
-  font-size: 14px;
-}
+ .button-container { 
+  text-align: right;
+  
+  .yellow-botton {
+    width: 200px;
+    height: 50px;
+    border: none;
+    background-color: #FFDC5D;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  .yellow-botton:hover {
+    background-color: #ffce1d;
+  }
+
+ }
 </style>
