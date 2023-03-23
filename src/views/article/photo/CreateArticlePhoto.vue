@@ -33,13 +33,17 @@
     },
 
     computed: {
-      ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+      ...mapGetters([
+        "getVuexId",
+        "getVuexNickname"
+      ]), // Vuex-getters 활용
     },
 
     methods: {
       // [Vuex-actions]
       ...mapActions([
-        "setVuexId"
+        "setVuexId",
+        "setVuexNickname"
       ]),
 
       // [사진 업로드]

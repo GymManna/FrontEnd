@@ -25,7 +25,7 @@ export default createStore({
     }
   },
   actions: {
-    // mutaion 을 일을키위한 행동, 컴포넌트에서는 actions 를 사용한다
+    // mutaion을 일을키위한 행동, 컴포넌트에서는 actions을 사용한다
     setVuexId: (context, id) => {
       console.log("@@@ Vuex-setVuexId : " + id);
       context.commit("mutSetVuexId", id);
@@ -36,5 +36,6 @@ export default createStore({
     }
   },
   modules: {
+    
   }
 })
