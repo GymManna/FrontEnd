@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <div class="menu">
-      <my-page-menu />
-    </div>
+    <MyPageMenu />
     <div class="contents">
       <router-view />
     </div>
@@ -25,21 +23,13 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+  height: 70vh;
   display: flex;
   flex-direction: row;
-
   gap: 10px;
-
-  .menu {
-    width: 20%;
-  }
 
   .contents {
     width: 100%;
-
-    li {
-      background-color: lightcyan;
-    }
   }
 }
 </style>

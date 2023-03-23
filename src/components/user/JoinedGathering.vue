@@ -1,13 +1,11 @@
 <template>
   <div class="container">
-    <div class="box">
-      <ul>
-        <li>만나 글 1</li>
-        <li>만나 글 2</li>
-        <li>만나 글 3</li>
-        <li>만나 글 4</li>
+    <ul>
+        <li><span>1</span>만나 글</li>
+        <li><span>2</span>만나 글</li>
+        <li><span>3</span>만나 글</li>
+        <li><span>4</span>만나 글</li>
       </ul>
-    </div>
   </div>
 </template>
 
@@ -19,24 +17,22 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  display: grid;
-  width: flex;
-  grid-template-columns: 200px auto;
-  // grid-template-rows: repeat(5, 1fr);
+  width: 100%;
+  
+  border: 1px solid #999;
 
-  background-color: lightyellow;
-  gap: 10px;
-
-  .box {
-    display: flex;
-    flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
-    background-color: lightgrey;
-
+  ul {
+    width: 100%;
     li {
-      background-color: lightcyan;
+      width: 90%;
+      text-align: left;
+      margin-bottom: 20px;
+      list-style: none;
+      border-bottom: 1px solid #999;
+
+      span {
+        margin-right: 10px;
+      }
     }
   }
 }

@@ -138,29 +138,6 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  display: grid;
-  width: flex;
-  grid-template-columns: 200px auto;
-  // grid-template-rows: repeat(5, 1fr);
-
-  background-color: lightyellow;
-  gap: 10px;
-
-  .box {
-    justify-self: center; // 가로 위치 가운데정렬
-    align-self: center; // 세로 위치 가운데정렬
-    background-color: lightgrey;
-
-    .userdata {
-      display: grid;
-      width: 500px;
-      height: 240px;
-      grid-template-columns: 2fr 5fr;
-      grid-template-rows: repeat(4, 1fr);
-
-      background-color: lightcyan;
-      gap: 10px;
-    }
-  }
+  
 }
 </style>

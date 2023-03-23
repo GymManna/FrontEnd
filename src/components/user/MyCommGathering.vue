@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <div class="table">
-      <table>
+    <table>
         <thead>
           <tr>
             <th>만나번호</th>
@@ -10,6 +9,7 @@
             <th>삭제</th>
           </tr>
         </thead>
+
         <tbody>
           <tr>
             <td>001</td>
@@ -31,33 +31,45 @@
           </tr>
         </tbody>
       </table>
-    </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: "MyCommGathering",
-};
+  export default {
+    name: "MyCommGathering",
+  };
 </script>
 
 <style lang="scss" scoped>
-.container {
-  display: grid;
-  width: flex;
-  grid-template-columns: 200px auto;
-  // grid-template-rows: repeat(5, 1fr);
+  .container {
+    width: 100%;
 
-  background-color: lightyellow;
-  gap: 10px;
-
-  .table {
-    width: 500px;
-    height: auto;
-
-    justify-self: center;
-    align-self: center;
-    background-color: lightgrey;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      
+      thead {
+        background-color: #eee;
+        font-weight: bold;
+        
+        th {
+          border: 1px solid #ddd;
+          padding: 10px;
+        }
+      }
+      
+      tbody {
+        tr {
+          &:nth-child(even) {
+            background-color: #f5f5f5;
+          }
+          
+          td {
+            border: 1px solid #ddd;
+            padding: 10px;
+          }
+        }
+      }
+    }
   }
-}
 </style>
