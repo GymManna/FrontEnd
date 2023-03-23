@@ -1,18 +1,29 @@
 <template>
   <div class="container">
-    <div class="box">
-      <div class="userdata">
-        <!-- <span> E-mail </span> <input type="text" v-model="id" readonly /> -->
-        <span> E-mail </span> <input type="text" v-model="id" />
-        <span> 이름 </span> <input type="text" v-model="name" />
-        <span> 닉네임 </span> <input type="text" v-model="nickname" />
-        <span> Password </span> <input type="password" v-model="password" />
-        <span> Password 확인 </span> <input type="password" v-model="passwordch" />
-        <span> 전화번호 </span> <input type="text" v-model="phone" />
-      </div>
-      <button @click="editUserInfo()">수정완료</button>
-      <button @click="withdrawUser()">회원탈퇴</button>
-    </div>
+    <div class="inner">
+          <span> E-mail </span> <input type="text" v-model="id" />
+        </div>
+        <div class="inner">
+          <span> 이름 </span> <input type="text" v-model="name" />
+        </div>
+        <div class="inner">
+          <span> 닉네임 </span> <input type="text" v-model="nickname" />
+        </div>
+        <div class="inner">
+          <span> Password </span> <input type="password" v-model="password" />
+        </div>
+        <div class="inner">
+          <span> Password 확인 </span> <input type="password" v-model="passwordch" />
+        </div>
+        <div class="inner">
+          <span> 전화번호 </span> <input type="text" v-model="phone" />
+        </div>
+        
+        <div class="btnbox">
+          <button @click="editUserInfo()">수정완료</button>
+        <button @click="withdrawUser()">회원탈퇴</button>
+        </div>
+        
   </div>
 </template>
 
@@ -23,12 +34,12 @@ export default {
   name: "EditMyInfo",
   data() {
     return {
-      id: "cheolsu-official@kakao.com",
-      name: "철수",
-      nickname: "철수바라기",
-      password: "a",
-      passwordch: "a",
-      phone: "010-1234-4321",
+      id: "",
+      name: "",
+      nickname: "",
+      password: "",
+      passwordch: "",
+      phone: "",
     }
   },
   computed: {
@@ -140,6 +151,58 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  
-}
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    margin: 0 auto;
+    padding: 20px 0;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .inner {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+
+      margin-bottom: 20px;
+
+      span {
+        width: 200px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background-color: #FFDC5D;
+        font-size: 18px;
+      }
+
+      input {
+        width: 500px;
+        height: 40px;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #999;
+      }
+    }
+
+    button {
+      width: 200px;
+      height: 50px;
+      margin: 20px auto 0;
+      border: none;
+      background-color: #FFDC5D;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    
+    button:hover {
+      background-color: #ffce1d;
+    }
+
+  }
 </style>
