@@ -43,7 +43,7 @@ export default {
       console.log("@@ editUserInfo() 실행");
       var serverIP = process.env.VUE_APP_SERVER_IP,
         serverPort = process.env.VUE_APP_SERVER_PORT,
-        pageUrl = "mygym/user/loginkakao";
+        pageUrl = "mygym/user/userinfo";
       this.$axios({
         url: `http://${serverIP}:${serverPort}/${pageUrl}`,
         method: "GET",
