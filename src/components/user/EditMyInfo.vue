@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="inner">
-      <span> E-mail </span> <input type="text" v-model="id" />
+      <span> E-mail </span> <input type="text" v-model="id" disabled />
     </div>
     <div class="inner">
       <span> 이름 </span> <input type="text" v-model="name" />
@@ -51,7 +51,7 @@ export default {
   methods: {
     ...mapActions(["setVuexId", "setVuexNickname"]), // Vuex-actions 활용
     getUserInfo() {
-      console.log("@@ editUserInfo() 실행");
+      console.log("@@ getUserInfo() 실행");
       var serverIP = process.env.VUE_APP_SERVER_IP,
         serverPort = process.env.VUE_APP_SERVER_PORT,
         pageUrl = "mygym/user/userinfo";
@@ -67,10 +67,10 @@ export default {
           console.log("axios 성공");
           console.log(result);
           if (result.data == "") {
-            console.log("@@ 정보 불러오기 실패");
+            // console.log("@@ 정보 불러오기 실패");
             alert("정보 불러오기 실패");
           } else {
-            console.log("@@ 정보 불러오기 성공");
+            // console.log("@@ 정보 불러오기 성공");
             this.id = result.data.userId;
             this.name = result.data.userName;
             this.nickname = result.data.userNickname;
@@ -102,7 +102,7 @@ export default {
           userName: this.name,
           userNickname: this.nickname,
           userPassword: this.password,
-          userPhone: this.Phone,
+          userPhone: this.phone,
         },
         responseType: "json",
       })
