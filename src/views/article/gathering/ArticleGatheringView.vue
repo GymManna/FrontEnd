@@ -4,7 +4,6 @@
       <div class="button-container">
         <button class="yellow-botton" @click="createGathering()">새 만나 작성</button>
       </div>
-      
 
       <div class="map">
         <gathering-main-map />
@@ -12,7 +11,7 @@
 
       <div>
         <div>게시글 리스트 출력</div>
-        <div class="table-responsive">
+        <div class="table-box">
           <table class="gathering-table">
             <thead>
               <tr>
