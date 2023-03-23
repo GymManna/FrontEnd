@@ -1,28 +1,28 @@
 <template>
   <div class="container">
     <div class="inner">
-          <span> E-mail </span> <input type="text" v-model="id" />
-        </div>
-        <div class="inner">
-          <span> 이름 </span> <input type="text" v-model="name" />
-        </div>
-        <div class="inner">
-          <span> 닉네임 </span> <input type="text" v-model="nickname" />
-        </div>
-        <div class="inner">
-          <span> Password </span> <input type="password" v-model="password" />
-        </div>
-        <div class="inner">
-          <span> Password 확인 </span> <input type="password" v-model="passwordch" />
-        </div>
-        <div class="inner">
-          <span> 전화번호 </span> <input type="text" v-model="phone" />
-        </div>
+      <span> E-mail </span> <input type="text" v-model="id" />
+    </div>
+    <div class="inner">
+      <span> 이름 </span> <input type="text" v-model="name" />
+    </div>
+    <div class="inner">
+      <span> 닉네임 </span> <input type="text" v-model="nickname" />
+    </div>
+    <div class="inner">
+      <span> Password </span> <input type="password" v-model="password" />
+    </div>
+    <div class="inner">
+      <span> Password 확인 </span> <input type="password" v-model="passwordch" />
+    </div>
+    <div class="inner">
+      <span> 전화번호 </span> <input type="text" v-model="phone" />
+    </div>
         
-        <div class="btnbox">
-          <button @click="editUserInfo()">수정완료</button>
-        <button @click="withdrawUser()">회원탈퇴</button>
-        </div>
+    <div class="btnbox">
+      <button @click="editUserInfo()">수정완료</button>
+      <button @click="withdrawUser()">회원탈퇴</button>
+    </div>
         
   </div>
 </template>
@@ -69,7 +69,6 @@ export default {
           if (result.data == "") {
             console.log("@@ 정보 불러오기 실패");
             alert("정보 불러오기 실패");
-            // this.$moveTo("signupkakao")
           } else {
             console.log("@@ 정보 불러오기 성공");
             this.id = result.data.userId;
@@ -150,26 +149,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
+  .container {
     width: 100%;
+    text-align: left;
     display: flex;
     flex-direction: column;
+    align-items: center;
     
-    margin: 0 auto;
-    padding: 20px 0;
-    
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
     .inner {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
       gap: 20px;
-
       margin-bottom: 20px;
 
       span {
@@ -190,19 +182,28 @@ export default {
       }
     }
 
-    button {
-      width: 200px;
-      height: 50px;
-      margin: 20px auto 0;
-      border: none;
-      background-color: #FFDC5D;
-      cursor: pointer;
-      font-size: 18px;
-    }
-    
-    button:hover {
-      background-color: #ffce1d;
-    }
+    .btnbox {
+      width: 50%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
 
+      button {
+        width: 200px;
+        height: 50px;
+        margin: 20px auto 0;
+        border: none;
+        background-color: #FFDC5D;
+        cursor: pointer;
+        font-size: 18px;
+        
+      }
+
+      button:hover {
+        background-color: #ffce1d;
+      }
+    
+    }
   }
 </style>

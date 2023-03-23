@@ -24,6 +24,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   height: 70vh;
+  
   display: flex;
   flex-direction: row;
   gap: 10px;
