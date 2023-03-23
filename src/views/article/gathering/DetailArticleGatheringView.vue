@@ -25,7 +25,7 @@
         <input type="text" v-model="centerName" readonly />
         <button @click="func()">검색</button>
       </div>
-      <div>버터짐 강남점</div>
+      <div>{{ centerName }}</div>
       <div class="map-box-map">
         지도 출력
       </div>
@@ -40,51 +40,49 @@
 
     <div class="comment-box">
       <div class="comment-box-input">
-        <span>댓글 ' {{ getVuexId }} '</span>
+        <div>댓글</div>
+        <span>{{ getVuexNickname }}</span>
         <input type="text" v-model="commentContent" />
         <button @click="createComment()">입력</button>
       </div>
       
-      <div class="comment-box-content">
-        <table>
-          <thead>
-            <tr>
-              <th>작성자</th>
-              <th>내용</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>헬리니</td>
-              <td>네 가능합니다 ^^
-                <button @click="editCommentGathering()">수정</button>
-                <button @click="deleteCommentGathering()">삭제</button>
-              </td>
-            </tr>
-            <tr>
-              <td>철순 오피설</td>
-              <td>운동 처음 하는데 도와주실 수 있나요?
-                <button @click="editCommentGathering()">수정</button>
-                <button @click="deleteCommentGathering()">삭제</button>
-              </td>
-            </tr>
-            <tr>
-              <td>헬리니</td>
-              <td>궁금한 거 있으시간
-                <button @click="editCommentGathering()">수정</button>
-                <button @click="deleteCommentGathering()">삭제</button>
-              </td>
-            </tr>
-            <tr>
-              <td>철순 오피셜</td>
-              <td>네 가능합니다 ^^
-                <button @click="editCommentGathering()">수정</button>
-                <button @click="deleteCommentGathering()">삭제</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div>
+        <div class="comment-box-content">
+          <table class="comment-table">
+            <thead>
+              <tr>
+                <th scope="col" width="100px">댓글번호</th>
+                <th scope="col" width="200px">작성자</th>
+                <th scope="col" width="400px">내용</th>
+                <th scope="col" width="80px">수정</th>
+                <th scope="col" width="80px">삭제</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in gCommentList" :key="index">
+                <td style="text-align: center">{{ item.articleGnum }}</td>
+                <td style="text-align: center">{{ item.centerName }}</td>
+                <td style="text-align: center">{{ item.countPuser }}</td>
+                <td style="text-align: center">
+                  <button @click="editCommentGathering(index)"
+                    v-bind:id="'editBtn' + (index + 1)"
+                  >
+                    수정
+                  </button>
+                </td>
+                <td style="text-align: center">
+                  <button @click="deleteCommentGathering(index)"
+                    v-bind:id="'delBtn' + (index + 1)"
+                  >
+                    삭제
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+
     </div>
     <button @click="joinGathering()">만나 신청</button>
     <button @click="cancelGathering()">만나 신청 취소</button>
@@ -98,28 +96,65 @@ export default {
   name: "DetailArticleGatheringView",
   data() {
     return {
-      userId: "ccccc", // 세션 정보로 넣을 것
-      articleGnum: "3",
-      articleTitle: "디폴트 제목 있음",
-      articleAuthor: "글 작성자",
-      articleCategory: "헬스",
-      articleDate: "2023 03 11",
-      articleMemberNum: "4",
-      articleContent:
-      `asdfasdfasdf
-두 번째 줄
-세 번째 줄`,
-      centerName: "버터짐 강남점",
+      userId: "", // 세션 정보로 넣을 것
+      articleGnum: "",
+      articleTitle: "",
+      articleAuthor: "",
+      articleCategory: "",
+      articleDate: "",
+      articleMemberNum: "",
+      articleContent: "",
+      centerName: "",
       commentContent: "",
+      gCommentList: [],
     };
   },
   computed: {
-    ...mapGetters(["getVuexId"]), // Vuex-getters 활용
+    ...mapGetters(["getVuexId", "getVuexNickname"]), // Vuex-getters 활용
+  },
+  mounted() {
+    this.userId = this.getVuexNickname;
+    this.articleGnum = "3";
+    this.articleTitle = "디폴트 제목 있음";
+    this.articleAuthor = "글 작성자";
+    this.articleCategory = "헬스";
+    this.articleDate = "2023 03 11";
+    this.articleMemberNum = "4";
+    this.articleContent = 
+      `asdfasdfasdf
+두 번째 줄
+세 번째 줄`,
+    this.centerName = "버터짐 강남점";
+    this.commentContent = "댓글내용";
+    this.getCommentList(this.articleGnum);
   },
   methods: {
-    ...mapActions(["setVuexId"]), // Vuex-actions 활용
+    ...mapActions(["setVuexId", "setVuexNickname"]), // Vuex-actions 활용
     func() {
       console.log("@@ func() 실행");
+    },
+    getCommentList(articleGnum) {
+      console.log("@@ getCommentList() 실행");
+      var serverIP = process.env.VUE_APP_SERVER_IP,
+        serverPort = process.env.VUE_APP_SERVER_PORT,
+        pageUrl = "mygym/comment/getarticlelist";
+      this.$axios({
+        url: `http://${serverIP}:${serverPort}/${pageUrl}`,
+        method: "GET",
+        params: {
+          articleGnum: articleGnum,
+        },
+        responseType: "json",
+      })
+        .then((result) => {
+          console.log("axios 성공");
+          console.log(result);
+          this.gCommentList = result.data.CList;
+        })
+        .catch((error) => {
+          console.log("axios 실패");
+          console.log(error);
+        })
     },
     editGathering() {
       console.log("@@ editGathering() 실행");

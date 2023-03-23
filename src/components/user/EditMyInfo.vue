@@ -56,15 +56,17 @@ export default {
           console.log("axios 성공");
           console.log(result);
           if (result.data == "") {
-            console.log("@@ 카카오 계정 회원가입");
-            alert("카카오 계정 회원가입");
-            this.$moveTo("signupkakao")
+            console.log("@@ 정보 불러오기 실패");
+            alert("정보 불러오기 실패");
+            // this.$moveTo("signupkakao")
           } else {
-            console.log("@@ 로그인 성공");
-            alert("로그인 성공!")
-            this.setVuexId(result.data.userId);
-            this.setVuexNickname(result.data.userNickname);
-            this.$moveTo("/gathering");
+            console.log("@@ 정보 불러오기 성공");
+            this.id = result.data.userId;
+            this.name = result.data.userName;
+            this.nickname = result.data.userNickname;
+            this.password = result.data.userPassword;
+            this.passwordch = null;
+            this.phone = result.data.userPhone;
           }
         })
         .catch((error) => {
