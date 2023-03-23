@@ -65,7 +65,7 @@ export default {
             this.name = result.data.userName;
             this.nickname = result.data.userNickname;
             this.password = result.data.userPassword;
-            this.passwordch = null;
+            this.passwordch = result.data.userPassword;
             this.phone = result.data.userPhone;
           }
         })
