@@ -1,12 +1,12 @@
 <template>
   <div class="gathering-main-map">
     <div class="button-group">
-      <button @click="changeSize(0)">Hide</button>
+      <!-- <button @click="changeSize(0)">Hide</button>
       <button @click="changeSize(600)">show</button>
       <button @click="displayMarker(markerPositions1)">marker set 1</button>
       <button @click="displayMarker(markerPositions2)">marker set 2</button>
       <button @click="displayMarker([])">marker set 3 (empty)</button>
-      <button @click="displayInfoWindow">infowindow</button>
+      <button @click="displayInfoWindow">infowindow</button> -->
     </div>
     <div class="map_wrap">
       <div

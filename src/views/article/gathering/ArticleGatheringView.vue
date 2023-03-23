@@ -10,7 +10,7 @@
       </div>
 
       <div>
-        <div>게시글 리스트 출력</div>
+        <br><br>
         <div class="table-box">
           <table class="gathering-table">
             <thead>
